@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <h1>約會助理</h1>
+    <form action="result" method="post">
+        <h3>住宿</h3>
+        <p>請輸入住宿地點</p>
+        <input type="text" name="location">
+        <h3>禮物</h3>
+        <p>請選擇購買平台</p>
+        <select name="platform" id="platform">
+            <option disabled selected>請選擇平台</option>
+            {% for item in plat %}
+            <option value="{{item}}">{{item}}</option>
+            {% endfor %}
+        </select>
+        <p>請選擇購買禮品</p>
+        <input type="text" name="gift">
+        <input type="submit">
+    </form>
+
+
+    
+{% endblock %}

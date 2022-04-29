@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <h3>你的選擇：</h3>
+    <p>{{loc}}</p>
+    <p>{{pla}}</p>
+    <p>{{gift}}</p>
+
+    <!-- <h1>歷史商品：</h1>
+    {% for item in history %}
+    <p>姓名：{{item['name']}}，平台：{{item['plat']}}，商品：{{item['gift']}}</p>
+    {% endfor %} -->
+
+    <table>
+        <thead>
+            <tr>
+              <th>姓名</th>
+              <th>平台</th>
+              <th>商品</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in history %}
+              <tr>
+                  <td>{{item['name']}}</td>
+                  <td>{{item['plat']}}</td>
+                  <td>{{item['gift']}}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+    </table>
+    
+{% endblock %}
