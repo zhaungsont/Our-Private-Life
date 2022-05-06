@@ -1,0 +1,53 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.background-gradient{
+    background: rgb(148,214,226);
+    background: linear-gradient(45deg, rgba(148,214,226,1) 0%, rgba(202,232,234,1) 100%);
+    padding: 2em 0;
+    width: 100%;
+
+}
+
+.logo{
+    display: block;
+    margin: 0 auto;
+    width: 20em;
+    position: relative;
+    top: 5em;
+}
+
+.logoname{
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2.5em;
+    margin: 1em;
+}
+
+.wrapper{
+    margin: 0 auto;
+    width: 35%;
+    padding: 1em;
+
+    border: 2px;
+    border-radius: 5px;
+    border-style: solid;
+
+}
+
+.spacer{
+    padding-top: 1em;
+}
+
+#content{
+    text-align: center;
+}
+
+p{
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+h3{
+    text-align: left;
+    font-family: 'Noto Serif TC', serif;
+}
