@@ -9,7 +9,7 @@ app = Flask(__name__)
 my_list = ['Javascript', 'Python', 'HTML', 'CSS', 'jQuery', 'PHP', 'React.js']
 PLATFORMS = ['PChome', "Friday", "Shopee"]
 DATA = []
-url = 'https://zhsont.wordpress.com/'
+# url = 'https://zhsont.wordpress.com/'
 
 
 @app.route("/")
@@ -28,7 +28,8 @@ def result():
     if platform == "PChome":
         newurl = 'https://ecshweb.pchome.com.tw/search/v3.3/?q=' + gift
         print(newurl)
-        crawPChome(newurl)
+        # crawPChome(newurl)
+        crawl()
     else:
         print('fail!')
     return render_template('result.html', loc=location, pla=platform, gift=gift, history=DATA)
@@ -37,7 +38,7 @@ def crawl():
     # 初次練習用，這裡面的資訊可以不予理會
 
     # 抓取我的blog的網頁原始碼
-    # url = 'https://zhsont.wordpress.com/'
+    url = 'https://zhsont.wordpress.com/'
 
     # 建立一個 Request 物件，附加 Request headers 的資訊
     request = req.Request(url, headers={
@@ -59,6 +60,13 @@ def crawl():
     for title in titles:
         print(title.a.string)
 
+
+
+
+
+
+
+
 def crawPChome(newurl):
     # 測試爬PChome
 
@@ -70,13 +78,11 @@ def crawPChome(newurl):
     with req.urlopen(request) as response:
         data = response.read().decode("utf-8")
     # print(data)
-    print('2')
 
     # 解析原始碼，取得每一篇文章的標題
     
     root = bs4.BeautifulSoup(data, "html.parser")
     # print(root.title.string)
-    print('3')
 
     # titles = root.find("h1", class_="entry-title") # 尋找 class="entry-title" 的 h1 標籤
     # print(titles.a.string)
@@ -84,3 +90,14 @@ def crawPChome(newurl):
     titles = root.find_all("h5", class_="prod_name")
     for title in titles:
         print(title.a.string)
+
+
+
+
+
+
+
+
+# 如果你使用 python app.py 指令運行的話也能透過以下程式碼來啟動 flask 。
+if __name__ == "__main__":
+    app.run()
