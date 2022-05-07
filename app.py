@@ -34,6 +34,8 @@ def result():
     return render_template('result.html', loc=location, pla=platform, gift=gift, history=DATA)
     
 def crawl():
+    # 初次練習用，這裡面的資訊可以不予理會
+
     # 抓取我的blog的網頁原始碼
     # url = 'https://zhsont.wordpress.com/'
 
@@ -58,6 +60,8 @@ def crawl():
         print(title.a.string)
 
 def crawPChome(newurl):
+    # 測試爬PChome
+
     # 建立一個 Request 物件，附加 Request headers 的資訊
     print('1')
     request = req.Request(newurl, headers={
