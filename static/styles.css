@@ -86,7 +86,7 @@ body{
 
 }
 
-a .btn-info{
+.btn-info{
     text-decoration: none;
     color:rgb(250, 245, 239)
 }
@@ -159,6 +159,35 @@ a .btn-info{
     text-align: justify;
     /* flex-grow: 10; */
 }
+
+.dating-wrap{
+    display: flex;
+    justify-content: center;
+}
+
+.dating-left{
+    max-width: 50%;
+}
+
+.dating-right{
+    width: 50%;
+}
+
+.bottom-top{
+    text-align: center;
+    text-decoration: none;
+    background-color: aquamarine;
+    width: 100%;
+    line-height: 4em;
+}
+
+#btt a{
+    text-decoration: none;
+}
+
+
+
+
 
 
 .logoname{

@@ -4,23 +4,35 @@
 
 <section id="dating">
     <h1>規劃一場完美約會。</h1>
-        <form onsubmit="handleSubmit()" id="locForm" action="dating" method="post">
-            <div class="dating-wrapper">
+    <form onsubmit="handleSubmit()" id="locForm" action="dating" method="post">
+        <div class="dating-wrapper">
             <select required name="location" id="location">
                 <option disabled selected>請選擇旅遊景點</option>
                 <option value="taipei">台北</option>
                 <option value="taichung">台中</option>
                 <option value="kaohsiung">高雄</option>
             </select>
-            <button id="submit" type="submit" class="btn btn-primary">看看推薦行程！</button>
-    
-        </form>
+        <button id="submit" type="submit" class="btn btn-primary btn-sm">看看推薦行程！</button>
+    </form>
 
+    <div class="dating-wrap">    
+        <div class="dating-left">
+            <ol>
+                {% if results %}
+                    {% for dict_item in results  %}
+                        <li><a href= {{ dict_item['url'] }} >{{dict_item['title']}}</a></li>
+                    {% endfor %}
+                {% endif %}
+            </ol>
+        </div>
+        <div class="dating-right">
             {% if results %}
-                {% for dict_item in results  %}
-                    <h2><a href= {{ dict_item['url'] }} >{{dict_item['title']}}</a></h2>
-                {% endfor %}
+                <h1>有住宿需求？</h1>
+                <button type="button" class="btn btn-lg btn-info">訂房！</button>
             {% endif %}
+        </div>
+    </div>
+    
 
 </section>
 
