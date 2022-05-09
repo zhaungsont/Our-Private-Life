@@ -31,7 +31,7 @@ def dating():
 
     return render_template('dating.html')
 
-@app.route('/dating/step1', methods=['POST'])
+@app.route('/dating', methods=['POST'])
 def dating_results():
     location = request.form.get('location')
     if location == 'taipei':
@@ -61,9 +61,6 @@ def dating_results():
         'title': '2022 台北約會景點推薦：情侶約會必去的浪漫夜景＆咖啡廳＆活動清單',
         'url': 'https://blog.pinkoi.com/tw/food-travel/74qrfhjt/'
     }]
-
-    # for dict_item in dummy_results:
-    #     print(dict_item[])
     
     return render_template('dating.html', results=dummy_results, loc=location)
 

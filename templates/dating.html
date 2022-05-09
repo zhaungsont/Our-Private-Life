@@ -4,7 +4,7 @@
 
 <section id="dating">
     <h1>規劃一場完美約會。</h1>
-        <form onsubmit="handleSubmit()" id="locForm" action="dating/step1" method="post">
+        <form onsubmit="handleSubmit()" id="locForm" action="dating" method="post">
             <div class="dating-wrapper">
             <select required name="location" id="location">
                 <option disabled selected>請選擇旅遊景點</option>
@@ -18,8 +18,7 @@
 
             {% if results %}
                 {% for dict_item in results  %}
-                    <h2>{{dict_item['title']}}</h2>
-                    <p>{{dict_item['url']}}</p>
+                    <h2><a href= {{ dict_item['url'] }} >{{dict_item['title']}}</a></h2>
                 {% endfor %}
             {% endif %}
 
