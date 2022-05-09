@@ -12,9 +12,14 @@ DATA = []
 # url = 'https://zhsont.wordpress.com/'
 
 # 舊版，勿用
+# @app.route("/")
+# def hello_world():
+#     return render_template('index.html', plat=PLATFORMS)
+
+# 暫時，之後會去掉
 @app.route("/")
 def hello_world():
-    return render_template('index.html', plat=PLATFORMS)
+    return render_template('home.html')
 
 @app.route("/home")
 def home():
