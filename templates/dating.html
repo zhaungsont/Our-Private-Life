@@ -2,6 +2,59 @@
 
 {% block body %}
 
-<h1>規劃一場完美約會。</h1>
+<section id="dating">
+    <h1>規劃一場完美約會。</h1>
+        <form onsubmit="handleSubmit()" id="locForm" action="dating/step1" method="post">
+            <div class="dating-wrapper">
+            <select required name="location" id="location">
+                <option disabled selected>請選擇旅遊景點</option>
+                <option value="taipei">台北</option>
+                <option value="taichung">台中</option>
+                <option value="kaohsiung">高雄</option>
+            </select>
+            <button id="submit" type="submit" class="btn btn-primary">看看推薦行程！</button>
+    
+        </form>
 
+            {% if results %}
+                {% for dict_item in results  %}
+                    <h2>{{dict_item['title']}}</h2>
+                    <p>{{dict_item['url']}}</p>
+                {% endfor %}
+            {% endif %}
+
+</section>
+
+<script>
+    // document.getElementById("locForm").addEventListener("click", function(event){
+    //     let selected = document.getElementById('location');
+    //     if (selected.value == '請選擇旅遊景點'){
+    //         event.preventDefault()
+    //         alert('請選擇一項景點！')
+    //     } else {
+    //         alert('success');
+    //     }
+    
+    // });
+
+    function handleSubmit(e){
+        let selected = document.getElementById('location');
+        if (selected.value == '請選擇旅遊景點'){
+            event.preventDefault()
+            alert('請選擇一項景點！')
+        }
+    }
+
+    // document.getElementById("submit").addEventListener("click", function(event){
+    //     let form = document.forms[0];
+    //     let selected = form.querySelector('select');
+    //     if (selected.value == '請選擇旅遊景點'){
+    //         form.preventDefault();
+    //         alert('請選擇一項景點！');
+    //     } else {
+    //         alert(selected.value);
+    //     }
+    // });
+
+</script>
 {% endblock %}

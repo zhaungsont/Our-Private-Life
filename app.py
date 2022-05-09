@@ -1,4 +1,5 @@
 from crypt import methods
+from os import lchflags
 from flask import Flask, render_template, request
 
 import urllib.request as req
@@ -27,7 +28,44 @@ def home():
 
 @app.route('/dating')
 def dating():
+
     return render_template('dating.html')
+
+@app.route('/dating/step1', methods=['POST'])
+def dating_results():
+    location = request.form.get('location')
+    if location == 'taipei':
+        # 爬台北景點
+        print('爬台北景點')
+    elif location == 'taichung':
+        # 爬台中景點
+        print('爬台中景點')
+    elif location == 'kaohsiung':
+        # 爬高雄景點
+        print('爬高雄景點')
+
+    # 假設下列是爬到的資訊
+    dummy_results = [{
+        'title': '2022 台北約會地點》十大浪漫約會行程，讓你戀情急速加溫',
+        'url': 'https://www.klook.com/zh-TW/blog/couple-dating-attractions-taipei-taiwan/'
+    }, {
+        'title': '2022週末放假玩台北景點|超過50個景點，一日遊行程,親子景點.景觀餐廳.浪漫夜景~超好玩!',
+        'url': 'https://fullfenblog.tw/taipei-lazy-bag/'
+    }, {
+        'title': '台北10 大浪漫活動- 台北最受歡迎的浪漫活動 - Hotels.com',
+        'url': 'https://tw.hotels.com/go/taiwan/tw-best-taipei-couples-things-to-do'
+    }, {
+        'title': '2022台北約會攻略！情侶約會免煩惱，3大浪漫提案為感情增溫！',
+        'url': 'https://blog.myfunnow.com/blog/673'
+    }, {
+        'title': '2022 台北約會景點推薦：情侶約會必去的浪漫夜景＆咖啡廳＆活動清單',
+        'url': 'https://blog.pinkoi.com/tw/food-travel/74qrfhjt/'
+    }]
+
+    # for dict_item in dummy_results:
+    #     print(dict_item[])
+    
+    return render_template('dating.html', results=dummy_results, loc=location)
 
 @app.route('/gifting')
 def gifting():
