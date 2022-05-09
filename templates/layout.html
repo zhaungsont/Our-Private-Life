@@ -18,19 +18,21 @@
 <body>
     <section id="navbar">
 
-        <a href="#">
+        <a href="/home">
             <img class="nav-logo" src="../static/logo.png" alt="">
         </a>
 
         <div class="flex-grow"> </div>
 
-        <a href="" class="flex-item">首頁</a>
+        <a href="/home" class="flex-item">首頁</a>
         <h4>|</h4>
-        <a href="" class="flex-item">關於我們</a>
+        <a href="/home#team" class="flex-item">關於我們</a>
         
     </section>
+    <div class="nav-compensate"> </div>
 
-    <section id="main-page">
+    {% block body %}{% endblock %}
+    <!-- <section id="main-page">
         <div class="main-wrapper">
             <div class="main-left">
                 <img class="main-logo" src="../static/logo.png" alt="Our Private Life">
@@ -82,24 +84,11 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
 
 
 
-
-    <!-- <section id="content" >
-        <div class="spacer">
-            &nbsp;
-        </div>
-        <h1 class="logoname">꧁ 約・會・助・理 ꧂</h1>
-
-        <div class="wrapper">
-        {% block body %}
-        </div>
-
-    </section>
-    {% endblock %} -->
 
 </body>
 </html>

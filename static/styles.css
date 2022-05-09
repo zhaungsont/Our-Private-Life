@@ -14,6 +14,7 @@ body{
     display: flex;
     justify-content: flex-end;
 
+    z-index: 1;
 }
 
 .flex-grow{
@@ -37,6 +38,10 @@ body{
 
 }
 
+.nav-compensate{
+    padding-top: 4.3em;
+}
+
 #main-page{
 
 }
@@ -45,8 +50,7 @@ body{
     display: flex;
     justify-content: center;
     background-color:rgb(250, 245, 239);
-
-    padding-top: 6em;
+    padding-top: 3em;
     padding-bottom: 3em;
 }
 
@@ -64,9 +68,16 @@ body{
     margin: 0 0.5em;
 }
 
+.main-description{
+    text-align: justify;
+    margin: 1em;
+    /* width: 80%; */
+}
+
 .description{
     text-align: justify;
-    margin: 1em 3em 1em 1em;
+    margin: 1em auto 1em auto;
+    width: 80%;
 }
 
 .btn-wrap{
@@ -92,8 +103,12 @@ a .btn-info{
     width: 50%;
 }
 
+#services{
+    padding-top: 5em;
+    margin-bottom: 2em;
+}
+
 #services h2, #services h1{
-    margin-top: 2em;
     text-align: center;
 }
 
@@ -113,9 +128,39 @@ a .btn-info{
     border-radius: 10px;
 }
 
+#team{
+    padding-top: 5em;
+}
 
+#team h1, #team h2{
+    text-align: center;
+}
 
+.team-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3em 8em;
+}
 
+.teammate-left{
+    width: 30%;
+}
+
+.teammate-img{
+    width: 250px;
+    display: block;
+    margin: auto auto;
+    border-radius: 50%;
+}
+
+.teammate-desc{
+
+    width: 70%;
+    margin: auto 1em;
+    text-align: justify;
+    /* flex-grow: 10; */
+}
 
 
 .logoname{
@@ -149,6 +194,6 @@ p{
 }
 
 h3{
-    text-align: left;
+
     font-family: 'Noto Serif TC', serif;
 }

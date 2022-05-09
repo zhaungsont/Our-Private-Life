@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<section id="main-page">
+
+    <div class="main-wrapper">
+        <div class="main-left">
+            <img class="main-logo" src="../static/logo.png" alt="Our Private Life">
+        </div>
+
+        <div class="main-right">
+            <h1>Our Private Life <br>——我們的完美約會助理</h1>
+            <p class="main-description">
+                身為大學生的我們，平時已因為繁重的功課與考試而忙得焦頭爛額。放學後已經筋疲力盡，能有多餘的閒暇來維繫和另一半的感情已是萬幸，何況是安排約會出遊? <br><br>
+                正因如此，我們希望能夠設計一個貼心周到的助理程式『我們的私生活』，為繁忙的情侶們計畫完美套裝行程！<br><br>
+                『我們的私生活』高度自動化與客製化，能依照使用者的需求，自動搜尋旅遊景點推薦、住宿選項、天氣資訊，甚至從國內眾多線上購物平台中自動下單禮品！有了『我們的私生活』提供的全包式套裝約會行程，你再也不須辛苦安排活動，而是專注陪伴眼前的戀人。
+            </p>
+            <div class="btn-wrap">
+                <div class="wrap-spacer"> </div>
+                <a href="#services"><button class="start-btn btn btn-info btn-lg">開始規劃</button></a>
+                <div class="wrap-spacer"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="services">
+    <h1>想要約會還是送禮呢？</h1>
+    <div class="service-wrapper">
+        <div class="date">
+            <div class="description">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae tenetur expedita eaque recusandae quam sint. Ab, quibusdam impedit excepturi quasi omnis soluta blanditiis sequi dignissimos, praesentium beatae dolore cupiditate laborum?
+            </div>
+            <img class="center-img" src="https://images.pexels.com/photos/805313/pexels-photo-805313.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="random picture">
+
+            <div class="btn-wrap">
+                <div class="wrap-spacer"> </div>
+                <a href="/dating"><button class="btn btn-info btn-lg">約會</button></a>
+                <div class="wrap-spacer"></div>
+            </div>
+            
+        </div>
+
+        <div class="gift">
+            <div class="description">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae tenetur expedita eaque recusandae quam sint. Ab, quibusdam impedit excepturi quasi omnis soluta blanditiis sequi dignissimos, praesentium beatae dolore cupiditate laborum?
+            </div>
+            <img class="center-img" src="https://images.pexels.com/photos/1666065/pexels-photo-1666065.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="random picture">
+            
+            <div class="btn-wrap">
+                <div class="wrap-spacer"> </div>
+                <a href="/gifting"><button class="btn btn-info btn-lg">送禮</button></a>
+                <div class="wrap-spacer"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr>
+<section id="team">
+    <h1>團隊介紹</h1>
+    <div class="team-wrapper">
+        <div class="teammate-left">
+            <img class="teammate-img" src="https://picsum.photos/200" alt="random pic">
+        </div>
+        <div class="teammate-desc">
+            <h3>紀柔安</h3>
+            <p>喜歡邏輯思考、分析的個性，讓我一腳踏進程式設計的世界裡。Python是我第一個接觸的程式語言，我也希望能透過更精進python、累積更多專案作品，以了解資料科學。</p>
+        </div>
+    </div>
+    <div class="team-wrapper">
+        <div class="teammate-desc">
+            <h3 style="text-align: right;">黃奕銘</h3>
+            <p style="text-align: right;">我目前是德文系五年級，當初選擇巨資當作輔系是因為一年級的時候認識一個巨資的朋友，有時候會來宿舍借我的電腦寫一些看起來很酷程式碼，之前我沒有甚麼程式基礎，最多只有在高中電腦課學過一點C++，今年才開始接觸幾堂使用Python的課，希望可以在這次期末專題有更多收穫。</p>
+        </div>
+        <div class="teammate-left">
+            <img class="teammate-img" src="https://picsum.photos/200" alt="random pic">
+        </div>
+    </div>
+    <div class="team-wrapper">
+        <div class="teammate-left">
+            <img class="teammate-img" src="https://picsum.photos/200" alt="random pic">
+        </div>
+        <div class="teammate-desc">
+            <h3>莊天均</h3>
+            <p>第一次正式接觸程式設計是在大學時透過一堂軟體開發課程自學，從此開啟了我邁向軟體開發的學習之路。Python 對我來說是一個陌生的新語言，因此很高興能夠透過本次的作品來訓練自己對這個語言的熟練度以及了解 Python 如何應用在現實世界。</p>
+        </div>
+    </div>
+    <div class="team-wrapper">
+        <div class="teammate-desc">
+            <h3 style="text-align: right;">陳奕君</h3>
+            <p style="text-align: right;">接觸python有一段時間，但都自學居多，第一次上程式設計課程，發現很多小技巧，充實技能又突破以前的學習盲區，並利用專題結合這門課所學，將技巧應用在實際層面，收穫頗多。</p>
+        </div>
+        <div class="teammate-left">
+            <img class="teammate-img" src="https://picsum.photos/200" alt="random pic">
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

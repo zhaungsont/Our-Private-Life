@@ -11,7 +11,7 @@ PLATFORMS = ['PChome', "Friday", "Shopee"]
 DATA = []
 # url = 'https://zhsont.wordpress.com/'
 
-
+# 舊版，勿用
 @app.route("/")
 def hello_world():
     return render_template('index.html', plat=PLATFORMS)
@@ -20,6 +20,13 @@ def hello_world():
 def home():
     return render_template('home.html')
 
+@app.route('/dating')
+def dating():
+    return render_template('dating.html')
+
+@app.route('/gifting')
+def gifting():
+    return render_template('gifting.html')
 
 @app.route('/result', methods=['POST'])
 def result():
