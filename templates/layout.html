@@ -16,15 +16,79 @@
     <title>Our Private Life</title>
 </head>
 <body>
-    <section id="banner">
-        <div class="background-gradient">
-            <!-- &nbsp; -->
-            <img class="logo" src="../static/logo.png" alt="Our Private Life">
-        </div>
-        <div>
+    <section id="navbar">
+
+        <a href="#">
+            <img class="nav-logo" src="../static/logo.png" alt="">
+        </a>
+
+        <div class="flex-grow"> </div>
+
+        <a href="" class="flex-item">首頁</a>
+        <h4>|</h4>
+        <a href="" class="flex-item">關於我們</a>
+        
+    </section>
+
+    <section id="main-page">
+        <div class="main-wrapper">
+            <div class="main-left">
+                <img class="main-logo" src="../static/logo.png" alt="Our Private Life">
+            </div>
+
+            <div class="main-right">
+                <h1>Our Private Life <br>——我們的完美約會助理</h1>
+                <p class="description">
+                    身為大學生的我們，平時已因為繁重的功課與考試而忙得焦頭爛額。放學後已經筋疲力盡，能有多餘的閒暇來維繫和另一半的感情已是萬幸，何況是安排約會出遊? <br><br>
+                    正因如此，我們希望能夠設計一個貼心周到的助理程式『我們的私生活』，為繁忙的情侶們計畫完美套裝行程！<br><br>
+                    『我們的私生活』高度自動化與客製化，能依照使用者的需求，自動搜尋旅遊景點推薦、住宿選項、天氣資訊，甚至從國內眾多線上購物平台中自動下單禮品！有了『我們的私生活』提供的全包式套裝約會行程，你再也不須辛苦安排活動，而是專注陪伴眼前的戀人。
+                </p>
+                <div class="btn-wrap">
+                    <div class="wrap-spacer"> </div>
+                    <a href="#services"><button class="start-btn btn btn-info btn-lg">開始規劃</button></a>
+                    <div class="wrap-spacer"></div>
+                </div>
+            </div>
         </div>
     </section>
-    <section id="content" >
+
+    <section id="services">
+        <h2>想要約會還是送禮呢？</h2>
+        <div class="service-wrapper">
+            <div class="date">
+                <div class="description">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae tenetur expedita eaque recusandae quam sint. Ab, quibusdam impedit excepturi quasi omnis soluta blanditiis sequi dignissimos, praesentium beatae dolore cupiditate laborum?
+                </div>
+                <img class="center-img" src="https://images.pexels.com/photos/805313/pexels-photo-805313.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="random picture">
+
+                <div class="btn-wrap">
+                    <div class="wrap-spacer"> </div>
+                    <a href="/dating"><button class="btn btn-info btn-lg">約會</button></a>
+                    <div class="wrap-spacer"></div>
+                </div>
+                
+            </div>
+
+            <div class="gift">
+                <div class="description">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae tenetur expedita eaque recusandae quam sint. Ab, quibusdam impedit excepturi quasi omnis soluta blanditiis sequi dignissimos, praesentium beatae dolore cupiditate laborum?
+                </div>
+                <img class="center-img" src="https://images.pexels.com/photos/1666065/pexels-photo-1666065.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="random picture">
+                
+                <div class="btn-wrap">
+                    <div class="wrap-spacer"> </div>
+                    <a href="/gifting"><button class="btn btn-info btn-lg">送禮</button></a>
+                    <div class="wrap-spacer"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <!-- <section id="content" >
         <div class="spacer">
             &nbsp;
         </div>
@@ -35,6 +99,7 @@
         </div>
 
     </section>
-    {% endblock %}
+    {% endblock %} -->
+
 </body>
 </html>

@@ -2,26 +2,127 @@ body{
     margin: 0;
     padding: 0;
 }
-.background-gradient{
+
+#navbar{
     background: rgb(148,214,226);
     background: linear-gradient(45deg, rgba(148,214,226,1) 0%, rgba(202,232,234,1) 100%);
-    padding: 2em 0;
+    padding: 1em 0;
     width: 100%;
+    position: fixed;
+
+    /* flexbox container */
+    display: flex;
+    justify-content: flex-end;
 
 }
 
-.logo{
+.flex-grow{
+    flex-grow: 10;
+}
+
+.flex-item{
+    margin: 0 1em;
+    font-size: 1.25em;
+}
+
+#navbar a{
+    text-decoration: none;
+    color:rgb(94, 94, 151);
+}
+
+
+.nav-logo{
+    margin-left: 1em;
+    width: 3em;
+
+}
+
+#main-page{
+
+}
+
+.main-wrapper{
+    display: flex;
+    justify-content: center;
+    background-color:rgb(250, 245, 239);
+
+    padding-top: 6em;
+    padding-bottom: 3em;
+}
+
+.main-logo{
+    width: 60%;
     display: block;
-    margin: 0 auto;
-    width: 20em;
-    position: relative;
-    top: 5em;
+    margin: 50px auto;
 }
+
+.main-left{
+    width: 50%;
+}
+
+.main-right h1{
+    margin: 0 0.5em;
+}
+
+.description{
+    text-align: justify;
+    margin: 1em 3em 1em 1em;
+}
+
+.btn-wrap{
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+a .btn-info{
+    text-decoration: none;
+    color:rgb(250, 245, 239)
+}
+
+.wrap-spacer{
+    flex-grow: 10;
+}
+
+.start-btn{
+    margin: 1em;
+}
+
+.main-right{
+    width: 50%;
+}
+
+#services h2, #services h1{
+    margin-top: 2em;
+    text-align: center;
+}
+
+.service-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.date, .gift{
+    width: 50%;
+}
+
+.center-img{
+    display: block;
+    margin: 1em auto;
+    width: 80%;
+    border-radius: 10px;
+}
+
+
+
+
+
 
 .logoname{
     font-family: 'Noto Serif TC', serif;
     font-size: 2.5em;
     margin: 1em;
+
 }
 
 .wrapper{

@@ -16,6 +16,11 @@ DATA = []
 def hello_world():
     return render_template('index.html', plat=PLATFORMS)
 
+@app.route("/home")
+def home():
+    return render_template('home.html')
+
+
 @app.route('/result', methods=['POST'])
 def result():
     location = request.form.get('location', '台灣')
