@@ -160,17 +160,42 @@ body{
     /* flex-grow: 10; */
 }
 
+#dating{
+    background-color:rgb(250, 245, 239);
+    padding-top: 3em;
+}
+
+.dating-title{
+    margin-bottom: 1em;
+}
+
+#dating form{
+    margin: 0 1em;
+    width: 50%;
+}
+
 .dating-wrap{
     display: flex;
     justify-content: center;
+    margin-top: 2em;
 }
 
 .dating-left{
     max-width: 50%;
 }
 
+.form-select{
+    display: inline;
+}
+
 .dating-right{
     width: 50%;
+    margin: 0 2em;
+    padding: 1em;
+    border: solid;
+    border-width: 2px;
+    border-color: rgb(165, 194, 248);
+    border-radius: 15px;
 }
 
 .bottom-top{
