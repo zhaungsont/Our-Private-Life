@@ -7,20 +7,9 @@ import bs4
 
 app = Flask(__name__)
 
-my_list = ['Javascript', 'Python', 'HTML', 'CSS', 'jQuery', 'PHP', 'React.js']
-PLATFORMS = ['PChome', "Friday", "Shopee"]
-DATA = []
-# url = 'https://zhsont.wordpress.com/'
-
-# 舊版，勿用
-# @app.route("/")
-# def hello_world():
-#     return render_template('index.html', plat=PLATFORMS)
-
-# 暫時，之後會去掉
-@app.route("/")
-def hello_world():
-    return render_template('home.html')
+# 如果你使用 python app.py 指令運行的話也能透過以下程式碼來啟動 flask 。
+if __name__ == "__main__":
+    app.run()
 
 @app.route("/home")
 def home():
@@ -28,21 +17,40 @@ def home():
 
 @app.route('/dating')
 def dating():
-
     return render_template('dating.html')
 
+
+"""
+以下為 Joanne 負責部分
+使用者會透過表單回傳三個地點參數中的一個，你需要依照該地點去進行爬蟲。
+
+我提供的變數： 
+location = 使用者想爬的地點英文名稱
+locationName = 使用者想爬的地點中文名稱
+
+爬蟲回來的資訊應該是一個list，每個list內元素都是一個 dict ，
+dict 應有 title 和 url 兩個元素：
+ {title: 標題內容放置處, url: 連結放置處} 
+完整範例請參考 dummy_results。
+可以直接將爬蟲程式碼寫在 def dating_results 函式內，但建議寫在一個獨立的函式裡避免太雜亂
+"""
 @app.route('/dating', methods=['POST'])
 def dating_results():
     location = request.form.get('location')
     if location == 'taipei':
         # 爬台北景點
+        locationName = '台北'
         print('爬台北景點')
     elif location == 'taichung':
         # 爬台中景點
+        locationName = '台中'
         print('爬台中景點')
     elif location == 'kaohsiung':
         # 爬高雄景點
+        locationName = '高雄'
         print('爬高雄景點')
+
+    
 
     # 假設下列是爬到的資訊
     dummy_results = [{
@@ -62,11 +70,53 @@ def dating_results():
         'url': 'https://blog.pinkoi.com/tw/food-travel/74qrfhjt/'
     }]
     
-    return render_template('dating.html', results=dummy_results, loc=location)
+    return render_template('dating.html', results=dummy_results, bookingValue=location, locationName=locationName)
+
+
+"""
+以下為奕君負責部分
+使用者會回傳想要訂房的地點，你需要去爬對應的房型並回傳訂房網站的資訊
+格式為 location=想要的地點英文名稱。
+location 變數只有三種可能性：taipei, taichung, kaohsiung。
+
+"""
+
+@app.route('/booking', methods=['POST'])
+def booking():
+    location = request.form.get('bookingLoc')
+    return render_template('booking.html', location=location)
+
+
 
 @app.route('/gifting')
 def gifting():
     return render_template('gifting.html')
+
+
+
+
+
+
+
+
+
+
+""" 以下內容可以不予理會 """
+
+my_list = ['Javascript', 'Python', 'HTML', 'CSS', 'jQuery', 'PHP', 'React.js']
+PLATFORMS = ['PChome', "Friday", "Shopee"]
+DATA = []
+# url = 'https://zhsont.wordpress.com/'
+
+# 舊版，勿用
+# @app.route("/")
+# def hello_world():
+#     return render_template('index.html', plat=PLATFORMS)
+
+# 暫時，之後會去掉
+@app.route("/")
+def hello_world():
+    return render_template('home.html')
 
 @app.route('/result', methods=['POST'])
 def result():
@@ -86,6 +136,8 @@ def result():
         print('fail!')
     return render_template('result.html', loc=location, pla=platform, gift=gift, history=DATA)
     
+
+
 def crawl():
     # 初次練習用，這裡面的資訊可以不予理會
 
@@ -111,13 +163,6 @@ def crawl():
     titles = root.find_all("h1", class_="entry-title")
     for title in titles:
         print(title.a.string)
-
-
-
-
-
-
-
 
 def crawPChome(newurl):
     # 測試爬PChome
@@ -150,6 +195,3 @@ def crawPChome(newurl):
 
 
 
-# 如果你使用 python app.py 指令運行的話也能透過以下程式碼來啟動 flask 。
-if __name__ == "__main__":
-    app.run()

@@ -1,6 +1,7 @@
 body{
     margin: 0;
     padding: 0;
+
 }
 
 #navbar{
@@ -160,18 +161,64 @@ body{
     /* flex-grow: 10; */
 }
 
+/* DATING PAGE */
+
+
+#dating-banner{
+    position: fixed;
+    z-index: -2;
+
+}
+
+#dating-banner img{
+    width: 100%;
+    object-fit: cover;
+
+}
+
 #dating{
-    background-color:rgb(250, 245, 239);
-    padding-top: 3em;
+    background-color:rgba(0, 0, 0, 0.639);
+    margin-top: 16em;
+    padding: 0 2em;
+    color: white;
+    /* make edges blurry */
+    /* 1px: Horizontal offset of the effect. Positive numbers shift it right, negative left.
+        2px: Vertical offset of the effect. Positive numbers shift it down, negative up.
+        3px: The blur effect.  0 means no blur.
+        color: The color of the shadow. */
+    -moz-box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
+    -webkit-box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
+    box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
 }
 
 .dating-title{
     margin-bottom: 1em;
+    margin-left: 1em;
+    color: rgb(255, 255, 255);
+    font-size: 4em;
 }
 
-#dating form{
+.desination-form{
+
     margin: 0 1em;
-    width: 50%;
+    width: 80%;
+}
+
+.arrow{
+    display: inline;
+    position: relative;
+    left: 20px;
+    bottom: 20px;
+    width: 100px;
+    transform: rotate(160deg);
+}
+
+.hint-word{
+    font-size: 1.5em;
+    color: white;
+    position: relative;
+    left: 30px;
+    bottom: 45px;
 }
 
 .dating-wrap{
@@ -191,11 +238,16 @@ body{
 .dating-right{
     width: 50%;
     margin: 0 2em;
-    padding: 1em;
+    
+    
+}
+
+.booking-suggestion{
     border: solid;
     border-width: 2px;
-    border-color: rgb(165, 194, 248);
+    border-color: rgb(189, 220, 251);
     border-radius: 15px;
+    padding: 1em;
 }
 
 .bottom-top{
@@ -210,6 +262,17 @@ body{
     text-decoration: none;
 }
 
+.empty-list{
+    height: 60vh;
+    width: 100%;
+    /* background-color: aqua; */
+}
+
+
+/* .form-select{
+    max-width: 20em!important;
+    margin: 1em 0;
+} */
 
 
 

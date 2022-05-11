@@ -1,23 +1,39 @@
 {% extends "layout.html" %}
 
 {% block body %}
-
+<section id="dating-banner">
+    <img src="https://images.pexels.com/photos/5225282/pexels-photo-5225282.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="two people looking at a map">
+</section>
+<!-- <div class="blur-zone"> yo</div> -->
 <section id="dating">
     <h1 class="dating-title">規劃一場完美約會。</h1>
-    <form onsubmit="handleSubmit()" id="locForm" action="dating" method="post">
+    <form class="desination-form" onsubmit="handleSubmit()" id="locForm" action="dating" method="post">
+        <!-- <select class="form-select" required name="location" id="location">
+                <option disabled selected>請選擇旅遊景點</option>
+                <option value="taipei">台北</option>
+                <option value="taichung">台中</option>
+                <option value="kaohsiung">高雄</option>
+        </select>
+        <button id="submit" type="submit" class="btn btn-primary btn-sm">看看推薦行程！</button> -->
+        
+        <div class="input-group">
             <select class="form-select" required name="location" id="location">
                 <option disabled selected>請選擇旅遊景點</option>
                 <option value="taipei">台北</option>
                 <option value="taichung">台中</option>
                 <option value="kaohsiung">高雄</option>
             </select>
-        <button id="submit" type="submit" class="btn btn-primary btn-sm">看看推薦行程！</button>
+            <button id="submit" type="submit" class="btn btn-outline-light">看看推薦行程！</button>
+            <img class="arrow" src="../static/chalk-arrow.png" alt="chalk arrow">
+            <span class="hint-word">點選開始尋找！</span>
+        </div>
     </form>
 
     <div class="dating-wrap">    
         <div class="dating-left">
             <ol>
                 {% if results %}
+                    <h2>景點相關資訊</h2>
                     {% for dict_item in results  %}
                         <li><a href= {{ dict_item['url'] }} >{{dict_item['title']}}</a></li>
                     {% endfor %}
@@ -26,12 +42,20 @@
         </div>
         {% if results %}
             <div class="dating-right">
-                <h1>有住宿需求？</h1>
-                <p>立刻透過約會助理協助您尋找並下訂一趟完美行程。</p>
-                <button type="button" class="btn btn-lg btn-info">訂房！</button>
+                <div class="booking-suggestion">
+                    <h1>在{{ locationName }}有住宿需求？</h1>
+                    <p>立刻透過約會助理協助您尋找並下訂一趟完美行程。</p>
+                    <form action="booking" method="post">
+                        <input type="hidden" name="bookingLoc" id="booking" value={{ bookingValue }}>
+                        <button type="submit" class="btn btn-lg btn-info">訂房！</button>
+                    </form>
+                </div>
             </div>
-        {% endif %}
-    </div>
+            {% endif %}
+            {% if results is not defined %}
+            {% endif %}
+        </div>
+        <div class="empty-list">&nbsp;</div>
     
 
 </section>
