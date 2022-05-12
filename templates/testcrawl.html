@@ -14,13 +14,17 @@
     結果：
     <ol>
         {% if data %}
-        {% for key, value in data.items() %}
+        {% for entry in data %}
         <li>
-            <img src={{ value }} alt="">
-            {{ key }}
+            <img src={{ entry['img'] }} alt="">
+            名稱： {{ entry['title'] }}
+            售價： {{ entry['price'] }}
+            網址： <a href={{ entry['order'] }}>{{ entry['order'] }}</a>
         </li>
         {% endfor %}
         {% endif %} 
-    </ol>    
+    </ol> 
+
+
 </body>
 </html>
