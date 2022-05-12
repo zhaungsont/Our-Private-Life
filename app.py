@@ -129,11 +129,11 @@ def bookingCrawlTest():
         new_entry['order'] = order_portals[i]['href']
         results.append(new_entry)
 
-    print(results)
+    # print(results)
 
     # results = dict(zip(booking_com_title_list, booking_com_imgurl_list))
     # print(results)
-    return render_template('testcrawl.html', plat='Booking.com', data=results)
+    return render_template('testcrawl.html', plat='Booking.com', data=results, length=len(results))
 
 
 
