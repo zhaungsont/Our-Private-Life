@@ -1,5 +1,3 @@
-from crypt import methods
-from os import lchflags
 from flask import Flask, render_template, request, redirect
 
 import urllib.request as req
