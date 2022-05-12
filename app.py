@@ -5,9 +5,7 @@ import bs4
 
 app = Flask(__name__)
 
-# 如果你使用 python app.py 指令運行的話也能透過以下程式碼來啟動 flask 。
-if __name__ == "__main__":
-    app.run()
+
 
 @app.route("/home")
 def home():
@@ -241,7 +239,9 @@ def crawPChome(newurl):
     for title in titles:
         print(title.a.string)
 
-
+# 如果你使用 python app.py 指令運行的話也能透過以下程式碼來啟動 flask 。
+if __name__ == "__main__":
+    app.run()
 
 
 
