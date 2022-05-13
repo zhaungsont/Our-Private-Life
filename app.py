@@ -167,7 +167,7 @@ DATA = []
 # 暫時，之後會去掉
 @app.route("/")
 def hello_world():
-    return render_template('home.html')
+    return redirect('/home')
 
 @app.route('/result', methods=['POST'])
 def result():

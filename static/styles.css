@@ -47,10 +47,23 @@ body{
 
 }
 
+#main-page > img{
+    position: fixed;
+    z-index: -1;
+    width: 100%;
+    /* bottom: 10em; */
+    object-fit:contain;
+}
+
 .main-wrapper{
+    margin: 0 auto;
+    width: 70%;
+    /* margin-left: 15%;
+    margin-right: 15%; */
     display: flex;
     justify-content: center;
-    background-color:rgb(250, 245, 239);
+    align-items: center;
+    /* background-color:rgb(250, 245, 239); */
     padding-top: 3em;
     padding-bottom: 3em;
 }
@@ -65,14 +78,42 @@ body{
     width: 50%;
 }
 
+.main-left h1{
+    font-family: 'Noto Serif TC', serif;
+    text-align: center;
+    font-size: 5em;
+}
+
 .main-right h1{
     margin: 0 0.5em;
+    color:rgb(250, 59, 174);
+    text-align: center;
+}
+#description-section{
+    background-color:rgba(0, 0, 0, 0.639);
+    -moz-box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
+    -webkit-box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
+    box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
+}
+
+#description-section > div{
+
+    margin: 0 auto;
+    width: 70%;
+}
+
+
+
+#description-section h1{
+    margin: 0 0.5em;
+    color: aliceblue;
 }
 
 .main-description{
     text-align: justify;
     margin: 1em;
-    /* width: 80%; */
+    color: aliceblue;
+
 }
 
 .description{
@@ -100,11 +141,20 @@ body{
 
 .main-right{
     width: 50%;
+
 }
 
 #services{
-    padding-top: 5em;
-    margin-bottom: 2em;
+    padding-top: 7em;
+    padding-bottom: 5em;
+    /* margin-bottom: 2em; */
+    color: aliceblue;
+    /* background-color:rgb(45, 45, 45); */
+
+    /* width: 105%;
+    overflow: hidden; */
+    background-color:rgba(0, 0, 0, 0.639);
+    
 }
 
 #services h2, #services h1{
@@ -114,6 +164,8 @@ body{
 .service-wrapper{
     display: flex;
     justify-content: center;
+    margin: 0 auto;
+    width: 70%;
 }
 
 .date, .gift{
@@ -129,6 +181,10 @@ body{
 
 #team{
     padding-top: 5em;
+
+    color: aliceblue;
+    /* background-color:rgb(45, 45, 45); */
+    background-color:rgba(0, 0, 0, 0.639);   
 }
 
 #team h1, #team h2{
@@ -139,7 +195,10 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 3em 8em;
+    /* margin: 3em 8em; */
+    margin: 0 auto;
+    padding-bottom: 3em;
+    width: 70%;
 }
 
 .teammate-left{
@@ -167,25 +226,25 @@ body{
 #dating-banner{
     position: fixed;
     z-index: -2;
-
+    
 }
 
 #dating-banner img{
     width: 100%;
-    object-fit: cover;
+    object-fit:contain;
 
 }
 
 #dating{
-    background-color:rgba(0, 0, 0, 0.639);
     margin-top: 16em;
     padding: 0 2em;
     color: white;
     /* make edges blurry */
     /* 1px: Horizontal offset of the effect. Positive numbers shift it right, negative left.
-        2px: Vertical offset of the effect. Positive numbers shift it down, negative up.
-        3px: The blur effect.  0 means no blur.
-        color: The color of the shadow. */
+    2px: Vertical offset of the effect. Positive numbers shift it down, negative up.
+    3px: The blur effect.  0 means no blur.
+    color: The color of the shadow. */
+    background-color:rgba(0, 0, 0, 0.639);
     -moz-box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
     -webkit-box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
     box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
@@ -312,3 +371,34 @@ h3{
 
     font-family: 'Noto Serif TC', serif;
 }
+
+
+/*  ---------------- BIG DESKTOP ---------------- */
+@media screen and (min-width: 1670px) {
+    .main-wrapper{
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #services{
+        padding-left: 15%;
+        padding-right: 15%;
+    }
+
+    #main-page > img{
+        bottom: 0em;
+    }
+
+    #dating-banner img{
+        width: 120%;
+    }
+
+    .desination-form{
+        width: 60%;
+    }
+
+}
+    
+    
+    /*  ---------------- BIG DESKTOP ---------------- */
