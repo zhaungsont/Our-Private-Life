@@ -269,6 +269,45 @@ def crawPChome(newurl):
     for title in titles:
         print(title.a.string)
 
+
+import requests, json
+
+keyword = input('請輸入欲查詢的商品種類:')
+
+def shopee_crawler(keyword):
+    url = 'https://shopee.tw/api/v4/search/search_items?by=sales&keyword=' + keyword + '&limit=60&newest=0&order=desc&page_type=search&scenario=PAGE_GLOBAL_SEARCH&version=2'
+    
+    res = requests.get(url, headers = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'})
+    
+    resjson = json.loads(res.text)
+    
+    gift_list = []
+    
+    for outcome in resjson['items']:
+        name = outcome['item_basic']['name']
+        historical_sold = outcome['item_basic']['historical_sold']
+    
+        if outcome['item_basic']['price_min'] == outcome['item_basic']['price_max']:
+            price = str(int(outcome['item_basic']['price_min']/100000))
+        else:
+            price = str(int(outcome['item_basic']['price_min']/100000)) + '~' + str(int(outcome['item_basic']['price_max']/100000))
+              
+        image = 'https://cf.shopee.tw/file/' + outcome['item_basic']['image']
+    
+        website = 'https://shopee.tw/' + outcome['item_basic']['name'].replace(' ', '-') + '-i.' + str(outcome['item_basic']['shopid']) + '.' + str(outcome['item_basic']['itemid'])
+
+        shopee_dict = {'name' : name,
+                       'historical_sold' : historical_sold,
+                       'price' : price,
+                       'image' : image,
+                       'website' : website}
+        
+        gift_list.append(shopee_dict)
+
+    print(gift_list)
+        
+shopee_crawler(keyword)
+
 # 如果你使用 python app.py 指令運行的話也能透過以下程式碼來啟動 flask 。
 if __name__ == "__main__":
     app.run()
