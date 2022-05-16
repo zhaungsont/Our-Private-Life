@@ -1,7 +1,17 @@
 {% extends "layout.html" %}
 
 {% block body %}
-
+<div class="nativeDateTimePicker">
+    <label for="party">入住:</label>
+    <input type="date" id="party" name="bday">
+    <span class="validity"></span>
+</div>
+<div class="nativeDateTimePicker">
+    <label for="party">離開:</label>
+    <input type="date" id="party" name="bday">
+    <span class="validity"></span>
+</div>
+<button type='submit'></button>
 {{ location }}
 
 {% endblock %}
