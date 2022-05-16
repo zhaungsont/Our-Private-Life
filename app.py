@@ -35,12 +35,12 @@ dict 應有 title 和 url 兩個元素：
 def dating_results():
     location = flask_request.form.get('location')
 
-    # if location == 'taipei':
-        # 爬台北景點
-
-
-    url="https://www.dcard.tw/topics/%E5%8F%B0%E5%8C%97%E6%99%AF%E9%BB%9E"
-
+    if location == 'taipei':
+        # 開始爬台北
+        url="https://www.dcard.tw/topics/%E5%8F%B0%E5%8C%97%E6%99%AF%E9%BB%9E"
+    else:
+        url='https://www.dcard.tw/topics/%E5%8F%B0%E5%8D%97%E6%99%AF%E9%BB%9E'
+    
     #爬html
     request=req.Request(url,headers={
         #若網站有cookie，也是放這
@@ -49,7 +49,6 @@ def dating_results():
 
     with req.urlopen(request) as response:
         data=response.read().decode("utf-8")
-    
     
     root=bs4.BeautifulSoup(data,"html.parser")
     print(root.title.string,"\n")
