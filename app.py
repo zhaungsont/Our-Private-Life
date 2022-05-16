@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, redirect
+from flask import request as flask_request
 
 import urllib.request as req
 import bs4
@@ -32,10 +33,11 @@ dict 應有 title 和 url 兩個元素：
 """
 @app.route('/dating', methods=['POST'])
 def dating_results():
-    # location = request.form.get('location')
+    location = flask_request.form.get('location')
+
     # if location == 'taipei':
         # 爬台北景點
-    locationName = '台北'
+
 
     url="https://www.dcard.tw/topics/%E5%8F%B0%E5%8C%97%E6%99%AF%E9%BB%9E"
 
@@ -64,7 +66,6 @@ def dating_results():
         }
         list_results.append(dummy_results)
 
-        print('爬台北景點')
 
     # elif location == 'taichung':
     #     # 爬台中景點
@@ -95,7 +96,7 @@ def dating_results():
     #     'url': 'https://blog.pinkoi.com/tw/food-travel/74qrfhjt/'
     # }]
     
-    return render_template('dating.html', results=list_results, bookingValue='taipei', locationName=locationName)
+    return render_template('dating.html', results=list_results, bookingValue='taipei')
 
 
 """
@@ -108,7 +109,7 @@ location 變數只有三種可能性：taipei, taichung, kaohsiung。
 
 @app.route('/booking', methods=['POST'])
 def booking():
-    location = request.form.get('bookingLoc')
+    location = flask_request.form.get('bookingLoc')
     return render_template('booking.html', location=location)
 
 
@@ -200,9 +201,9 @@ def hello_world():
 
 @app.route('/result', methods=['POST'])
 def result():
-    location = request.form.get('location', '台灣')
-    platform = request.form.get('platform')
-    gift = request.form.get('gift')
+    location = flask_request.form.get('location', '台灣')
+    platform = flask_request.form.get('platform')
+    gift = flask_request.form.get('gift')
     new_entry = {'name': location, 'plat': platform, 'gift':gift}
     DATA.append(new_entry)
 
