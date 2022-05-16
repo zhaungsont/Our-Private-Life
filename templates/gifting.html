@@ -3,5 +3,13 @@
 {% block body %}
 
 <h1>尋找她/他的完美禮品</h1>
-
+<ol>
+{% for dict_items in data %}
+<li>
+    {{ dict_items['name'] }} {{ dict_items['historical_sold'] }} {{ dict_items['price'] }} {{ dict_items['image'] }} {{ dict_items['website'] }}
+</li>
+{% endfor %}
+</ol>
 {% endblock %}
+
+
