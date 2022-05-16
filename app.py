@@ -52,7 +52,7 @@ def dating_results():
     
     
     root=bs4.BeautifulSoup(data,"html.parser")
-    print(root.title.string,"\n")
+    #print(root.title.string,"\n")
 
     list_results=[]
 
