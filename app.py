@@ -48,8 +48,7 @@ def dating_results():
         data=response.read().decode("utf-8")
     
     root=bs4.BeautifulSoup(data,"html.parser")
-    print('print root.title.string')
-    print(root.title.string,"\n")
+    #print(root.title.string,"\n")
 
     list_results=[]
 
@@ -83,7 +82,7 @@ def dating_results():
     # print(f'list results={list_results}')
     # ~~~舊方法~~~
 
-    
+
     return render_template('dating.html', results=list_results, bookingValue='taipei')
 
 
