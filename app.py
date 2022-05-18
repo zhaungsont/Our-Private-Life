@@ -27,12 +27,17 @@ def dating():
 def dating_results():
     location = flask_request.form.get('location')
 
+
+    print(f'location= {location}')
+
     if location == 'taipei':
         # 開始爬台北
         url="https://www.dcard.tw/topics/%E5%8F%B0%E5%8C%97%E6%99%AF%E9%BB%9E"
     else:
         url='https://www.dcard.tw/topics/%E5%8F%B0%E5%8D%97%E6%99%AF%E9%BB%9E'
     
+    print(f'url={url}')
+
     #爬html
     request=req.Request(url,headers={
         #若網站有cookie，也是放這
@@ -43,19 +48,41 @@ def dating_results():
         data=response.read().decode("utf-8")
     
     root=bs4.BeautifulSoup(data,"html.parser")
+    print('print root.title.string')
     print(root.title.string,"\n")
 
     list_results=[]
 
-    for title in root.find_all("a",class_="sc-a230363e-3 dsTKss"):
-        
-        get_title="{}".format(title.text)
-        get_url="https://www.dcard.tw"+title.get("href")
-        dummy_results = {
-            'title': get_title,
-            'url': get_url
+    # ~~~新方法~~~
+    for new_a in root.find_all("article"):
+        new_h2 = new_a.find("h2")
+        new_a2 = new_h2.find("a")
+        new_title = new_a2.text
+        new_url="https://www.dcard.tw"+new_a2.get("href")
+        results = {
+            'title': new_title,
+            'url': new_url
         }
-        list_results.append(dummy_results)
+        
+        list_results.append(results)
+    print('接下來是用新方法取得到Dcard的標題：', list_results)
+    # ~~~新方法~~~
+
+
+    # ~~~舊方法~~~
+    # for title in root.find_all("a",class_="sc-a230363e-3 dsTKss"): # sc-b205d8ae-3 iOQsOu
+        
+    #     get_title="{}".format(title.text)
+    #     get_url="https://www.dcard.tw"+title.get("href")
+    #     dummy_results = {
+    #         'title': get_title,
+    #         'url': get_url
+    #     }
+    #     list_results.append(dummy_results)
+    
+    # print(f'list results={list_results}')
+    # ~~~舊方法~~~
+
     
     return render_template('dating.html', results=list_results, bookingValue='taipei')
 
