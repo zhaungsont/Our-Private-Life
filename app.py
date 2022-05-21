@@ -182,8 +182,8 @@ def shopee_crawler(): # 可以放參數進去
     # shopee_crawler(keyword)
 
 # 如果你使用 python app.py 指令運行的話也能透過以下程式碼來啟動 flask 。
-if __name__ == "__main__":
-    app.run()
+# if __name__ == "__main__":
+#     app.run()
 
 
 
