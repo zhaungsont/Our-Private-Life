@@ -1,3 +1,5 @@
+from ast import keyword
+from crypt import methods
 from flask import Flask, render_template, redirect
 from flask import request as flask_request
 
@@ -17,7 +19,6 @@ def hello_world():
 
 @app.route("/home")
 def home():
-    shopee_crawler()
     return render_template('home.html')
 
 @app.route('/dating')
@@ -71,7 +72,7 @@ def dating_results():
         }
         
         list_results.append(results)
-    print('接下來是用新方法取得到Dcard的標題：', list_results)
+    # print('接下來是用新方法取得到Dcard的標題：', list_results)
     # ~~~新方法~~~
 
 
@@ -99,12 +100,21 @@ def booking():
     location = flask_request.form.get('bookingLoc')
     return render_template('booking.html', location=location)
 
-
 @app.route('/gifting')
 def gifting():
-    results = shopee_crawler()
+    return render_template('gifting.html', keyword='', data='!initial')
 
-    return render_template('gifting.html', data=results)
+
+@app.route('/gifting', methods=['POST'])
+def gifting_results():
+    keyword = flask_request.form.get('keyword')
+    # 防呆機制
+    if (keyword.strip() == ''):
+        results = ''
+    else:
+        results = shopee_crawler(keyword)
+
+    return render_template('gifting.html', data=results, keyword=keyword)
 
 
 @app.route('/crawl')
@@ -151,10 +161,10 @@ def bookingCrawlTest():
     return render_template('testcrawl.html', plat='Booking.com', data=results, length=len(results))
 
 
-def shopee_crawler(): # 可以放參數進去
+def shopee_crawler(keyword): # 可以放參數進去
 
     # keyword = input('請輸入欲查詢的商品種類:')
-    keyword = 'ps4'
+    # keyword = 'ps4'
     url = 'https://shopee.tw/api/v4/search/search_items?by=sales&keyword=' + keyword + '&limit=60&newest=0&order=desc&page_type=search&scenario=PAGE_GLOBAL_SEARCH&version=2'
     
     res = requests.get(url, headers = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'})

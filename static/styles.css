@@ -372,6 +372,67 @@ h3{
     font-family: 'Noto Serif TC', serif;
 }
 
+.giftingbg{
+    position: fixed;
+    z-index: -1;
+    width: 100%;
+}
+
+#gifting-form{
+    margin-top: 35vh;
+
+    /* margin: auto 15%; */
+    background-color:rgba(0, 0, 0, 0.639);
+    -moz-box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
+    -webkit-box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
+    box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
+
+}
+
+.giftquery-wrapper{
+    /* padding-top: 40vh; */
+    margin: auto 15%;
+    margin-bottom: 1.5em;
+    padding-bottom: 2em;
+}
+
+
+.giftquery-wrapper > h1{
+    color: aliceblue;
+    /* margin-bottom: 1em; */
+}
+
+#giftcard-section{
+    background-color:rgba(0, 0, 0, 0.639);
+
+}
+
+.giftcard-wrapper{
+    margin: auto 15%;
+    padding-bottom: 5em;
+}
+
+.card-title{
+    font-size: 1em;
+}
+
+.card a{
+    text-decoration: none;
+    color: rgb(56, 56, 56)
+}
+
+.card h3{
+    font-family: 'Noto Sans TC', sans-serif;
+
+}
+
+.gift-initial{
+    padding-top: 1em;
+    padding-bottom: 50vh;
+    color: aliceblue;
+    margin-left: 15%;
+    margin-right: 15%;
+}
 
 /*  ---------------- BIG DESKTOP ---------------- */
 @media screen and (min-width: 1670px) {
@@ -396,6 +457,21 @@ h3{
 
     .desination-form{
         width: 60%;
+    }
+
+    .giftquery-wrapper{
+        margin: auto 30%;
+        margin-bottom: 1.5em;
+    }
+
+    #giftcard-wrapper{
+        margin: auto 25%;
+    }
+
+    .gift-initial{
+        margin: auto 30%;
+        padding-left: 0;
+        padding-right: 0;
     }
 
 }

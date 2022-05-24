@@ -1,15 +1,73 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<img src="https://images.pexels.com/photos/6249028/pexels-photo-6249028.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="two ppl" class="giftingbg">
+<section id="gifting-form">
 
-<h1>尋找她/他的完美禮品</h1>
-<ol>
-{% for dict_items in data %}
-<li>
-    {{ dict_items['name'] }} {{ dict_items['historical_sold'] }} {{ dict_items['price'] }} {{ dict_items['image'] }} {{ dict_items['website'] }}
-</li>
-{% endfor %}
-</ol>
+    <div class="giftquery-wrapper">
+        <h1>尋找她/他的完美禮品</h1>
+        <form action="gifting" method="POST">
+            <div class="input-group">
+                <input required type="text" class="form-control" name="keyword" placeholder="搜尋「PS5」..." value={{ keyword }} >
+                <input type="submit" class="btn btn-outline-light" value="尋找">
+                <img class="arrow" src="../static/chalk-arrow.png" alt="chalk arrow">
+                <span class="hint-word">點選開始尋找！</span>
+            </div>
+        </form>
+    </div>
+
+</section>
+
+<section id="giftcard-section">
+<!-- 是否有得到 data 資料 -->
+{% if data %}
+<div class="giftcard-wrapper">
+    <!-- 有得到，但data是!inital代表使用者尚未使用表單 -->
+    {% if data == '!initial' %}
+        <div class="gift-initial">
+        &nbsp;
+        </div>
+    <!-- 有得到，但且使用者有查到蝦皮資料 -->
+    {% else %}
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            {% for dict_items in data %}
+            <div class="col d-flex align-items-stretch">
+                <div class="card">
+                    <a href={{ dict_items['website'] }} class="gcanchor">
+                        <img src={{ dict_items['image'] }} class="card-img-top" alt="...">
+                        <div class="card-body">
+
+                            {% if dict_items['name']|length > 25 %}
+                                {{ dict_items['name']|truncate(25, True) }}
+                            {% else %}
+                                <h5 class="card-title">{{ dict_items['name'] }}</h5>
+                            {% endif %}
+                            <p class="card-text">已售出 {{ dict_items['historical_sold'] }}</p>
+                            <h5 class="card-text gcprice">{{ dict_items['price'] }} 元</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% else %}
+<!-- 使用者輸入的資料沒有得到回傳值 -->
+    <div class="gift-initial">
+        <h1>嗯⋯⋯你的關鍵字好像查不到東西。</h1>
+        <h3>換一個關鍵字試試看？</h3>
+    </div>
+{% endif %}
 {% endblock %}
+    
+</section>
+
+<ol>
+<li>
+        
+</li>
+</ol>
+
 
 
