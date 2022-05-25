@@ -96,17 +96,18 @@ def dating_results():
 
 @app.route('/booking', methods=['POST'])
 def booking():
-    year1=str(input("輸入西元年:"))
-    month1=str(input("輸入月(01、02...)"))
-    date1=str(input("輸入日(01、02...)"))
-    year2=str(input("輸入西元年:"))
-    month2=str(input("輸入月(01、02...)"))
-    date2=str(input("輸入日(01、02...)"))
+   # year1=str(input("輸入西元年:"))
+   # month1=str(input("輸入月(01、02...)"))
+   # date1=str(input("輸入日(01、02...)"))
+   # year2=str(input("輸入西元年:"))
+   # month2=str(input("輸入月(01、02...)"))
+   # date2=str(input("輸入日(01、02...)"))
     price_class = 'fcab3ed991 bd73d13072'
     title_and_img_class = 'b8b0793b0e'
     order_url_class = 'e13098a59f'
-    url=f"https://www.booking.com/searchresults.zh-tw.html?label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&ss=%E5%8F%B0%E5%8C%97&ssne=%E5%8F%B0%E5%8C%97&ssne_untouched=%E5%8F%B0%E5%8C%97&lang=zh-tw&sb=1&src_elem=sb&dest_id=-2637882&dest_type=city&checkin={year1}-{month1}-{date1}&checkout={year2}-{month2}-{date2}&group_adults=2&no_rooms=1&group_children=0&sb_travel_purpose=leisure&order=class"
-    
+    #url=f"https://www.booking.com/searchresults.zh-tw.html?label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&ss=%E5%8F%B0%E5%8C%97&ssne=%E5%8F%B0%E5%8C%97&ssne_untouched=%E5%8F%B0%E5%8C%97&lang=zh-tw&sb=1&src_elem=sb&dest_id=-2637882&dest_type=city&checkin={year1}-{month1}-{date1}&checkout={year2}-{month2}-{date2}&group_adults=2&no_rooms=1&group_children=0&sb_travel_purpose=leisure&order=class"
+    #試用URL
+    url="https://www.booking.com/searchresults.zh-tw.html?label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&ss=%E5%8F%B0%E5%8C%97&ssne=%E5%8F%B0%E5%8C%97&ssne_untouched=%E5%8F%B0%E5%8C%97&lang=zh-tw&sb=1&src_elem=sb&dest_id=-2637882&dest_type=city&checkin=2022-08-02&checkout=2022-08-05&group_adults=2&no_rooms=1&group_children=0&sb_travel_purpose=leisure&order=class"
     request = req.Request(url, headers={
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36"
     })
