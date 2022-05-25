@@ -1,5 +1,4 @@
 from ast import keyword
-from crypt import methods
 from flask import Flask, render_template, redirect
 from flask import request as flask_request
 
@@ -97,8 +96,80 @@ def dating_results():
 
 @app.route('/booking', methods=['POST'])
 def booking():
+   # year1=str(input("輸入西元年:"))
+   # month1=str(input("輸入月(01、02...)"))
+   # date1=str(input("輸入日(01、02...)"))
+   # year2=str(input("輸入西元年:"))
+   # month2=str(input("輸入月(01、02...)"))
+   # date2=str(input("輸入日(01、02...)"))
+    price_class = 'fcab3ed991 bd73d13072'
+    title_and_img_class = 'b8b0793b0e'
+    order_url_class = 'e13098a59f'
+    #url=f"https://www.booking.com/searchresults.zh-tw.html?label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&ss=%E5%8F%B0%E5%8C%97&ssne=%E5%8F%B0%E5%8C%97&ssne_untouched=%E5%8F%B0%E5%8C%97&lang=zh-tw&sb=1&src_elem=sb&dest_id=-2637882&dest_type=city&checkin={year1}-{month1}-{date1}&checkout={year2}-{month2}-{date2}&group_adults=2&no_rooms=1&group_children=0&sb_travel_purpose=leisure&order=class"
+    #試用URL
+    url="https://www.booking.com/searchresults.zh-tw.html?label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&ss=%E5%8F%B0%E5%8C%97&ssne=%E5%8F%B0%E5%8C%97&ssne_untouched=%E5%8F%B0%E5%8C%97&lang=zh-tw&sb=1&src_elem=sb&dest_id=-2637882&dest_type=city&checkin=2022-08-02&checkout=2022-08-05&group_adults=2&no_rooms=1&group_children=0&sb_travel_purpose=leisure&order=class"
+    request = req.Request(url, headers={
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36"
+    })
+
+    with req.urlopen(request) as response:
+        data = response.read().decode("utf-8")
+        
+    root = bs4.BeautifulSoup(data, "html.parser")
+
+    title_and_img = root.find_all("img", class_=title_and_img_class)
+    prices = root.find_all("span", class_=price_class)
+    order_portals = root.find_all("a", class_=order_url_class)
+    money=root.find_all("span",class_='fcab3ed991 bd73d13072')
+    score=root.find_all('div',class_='b5cd09854e d10a6220b4')
+
+    imgurl_list = []
+    title_list = []
+    results = []
+    money_text=[]
+    score_text=[]
+
+
+    for M in money:
+        money_text.append(M.text)
+
+    for S in score:
+        score_text.append(S.text)   
+        
+    for entry in title_and_img:
+        imgurl_list.append(entry['src'])
+        title_list.append(entry['alt'])
+
+    money_list=[]
+    for j in range(len(money_text)):
+        Mtext=money_text[j].replace(u'\xa0', ' ')
+        money_list=money_list+[Mtext]
+
+    score=root.find_all('div',class_='b5cd09854e d10a6220b4')
+    score_C=[]
+    for S in range(len(score_text)):
+        Stext=score_text[S].replace(u'\xa0', ' ')
+        
+        score_C=score_C+[Stext]
+
+    score_list=[]
+    for T in range(len(score_C)):
+        score_n="評分:"+score_C[T]+"分"
+        score_list=score_list+[score_n]
+
+    for i in range(len(imgurl_list)):
+            new_entry = {}
+            new_entry['title'] = title_list[i]
+            new_entry['img'] = imgurl_list[i]
+            new_entry['price'] = prices[i].string
+            new_entry['order'] = order_portals[i]['href']
+            new_entry["score"] =score_list[i]
+            results.append(new_entry)
+
+    
+
     location = flask_request.form.get('bookingLoc')
-    return render_template('booking.html', location=location)
+    return render_template('booking.html', data=results)
 
 @app.route('/gifting')
 def gifting():
@@ -120,7 +191,7 @@ def gifting_results():
 @app.route('/crawl')
 def bookingCrawlTest():
     # url = 'https://www.booking.com/searchresults.zh-tw.html?label=gen173nr-1DCAEoggI46AdIM1gEaOcBiAEBmAEwuAEHyAEM2AED6AEBiAIBqAIDuALkn--TBsACAdICJDc2YTkwMmE4LTZiMjUtNGFiNy05OGVlLTllYTM5NWUwOTM3MdgCBOACAQ&sid=ef8c2cbf788afd9c67d94d6da125590a&sb=1&sb_lp=1&src=index&src_elem=sb&error_url=https%3A%2F%2Fwww.booking.com%2Findex.zh-tw.html%3Flabel%3Dgen173nr-1DCAEoggI46AdIM1gEaOcBiAEBmAEwuAEHyAEM2AED6AEBiAIBqAIDuALkn--TBsACAdICJDc2YTkwMmE4LTZiMjUtNGFiNy05OGVlLTllYTM5NWUwOTM3MdgCBOACAQ%3Bsid%3Def8c2cbf788afd9c67d94d6da125590a%3Bsb_price_type%3Dtotal%26%3B&ss=%E5%8F%B0%E5%8C%97%2C+%E5%8F%B0%E5%8C%97%E5%9C%B0%E5%8D%80%2C+%E8%87%BA%E7%81%A3&is_ski_area=&checkin_year=&checkin_month=&checkout_year=&checkout_month=&group_adults=2&group_children=0&no_rooms=1&b_h4u_keep_filters=&from_sf=1&ss_raw=%E5%8F%B0%E5%8C%97&ac_position=0&ac_langcode=xt&ac_click_type=b&dest_id=-2637882&dest_type=city&iata=TPE&place_id_lat=25.046236&place_id_lon=121.51763&search_pageview_id=68a569b2f22c017a&search_selected=true&search_pageview_id=68a569b2f22c017a&ac_suggestion_list_length=5&ac_suggestion_theme_list_length=0'
-    url = 'https://www.booking.com/searchresults.zh-tw.html?ss=%E5%8F%B0%E5%8C%97&ssne=%E5%8F%B0%E5%8C%97&ssne_untouched=%E5%8F%B0%E5%8C%97&label=gen173nr-1DCAEoggI46AdIM1gEaOcBiAEBmAEwuAEHyAEM2AED6AEBiAIBqAIDuALkn--TBsACAdICJDc2YTkwMmE4LTZiMjUtNGFiNy05OGVlLTllYTM5NWUwOTM3MdgCBOACAQ&sid=ef8c2cbf788afd9c67d94d6da125590a&aid=304142&lang=zh-tw&sb=1&src_elem=sb&src=searchresults&dest_id=-2637882&dest_type=city&checkin=2022-08-15&checkout=2022-08-16&group_adults=2&no_rooms=1&group_children=0&sb_travel_purpose=leisure'
+    #url = 'https://www.booking.com/searchresults.zh-tw.html?ss=%E5%8F%B0%E5%8C%97&ssne=%E5%8F%B0%E5%8C%97&ssne_untouched=%E5%8F%B0%E5%8C%97&label=gen173nr-1DCAEoggI46AdIM1gEaOcBiAEBmAEwuAEHyAEM2AED6AEBiAIBqAIDuALkn--TBsACAdICJDc2YTkwMmE4LTZiMjUtNGFiNy05OGVlLTllYTM5NWUwOTM3MdgCBOACAQ&sid=ef8c2cbf788afd9c67d94d6da125590a&aid=304142&lang=zh-tw&sb=1&src_elem=sb&src=searchresults&dest_id=-2637882&dest_type=city&checkin=2022-08-15&checkout=2022-08-16&group_adults=2&no_rooms=1&group_children=0&sb_travel_purpose=leisure'
     price_class = 'fcab3ed991 bd73d13072'
     title_and_img_class = 'b8b0793b0e'
     order_url_class = 'e13098a59f'
@@ -201,7 +272,7 @@ def shopee_crawler(keyword): # 可以放參數進去
 
 # 如果你使用 python app.py 指令運行的話也能透過以下程式碼來啟動 flask 。
 if __name__ == "__main__":
-     app.run()
+     app.run(debug=True)
 
 
 
