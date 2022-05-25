@@ -8,6 +8,14 @@ import urllib.request as req
 import ssl
 import bs4
 
+# wordcloud
+import jieba
+jieba.load_userdict('static/dict.txt.big')
+import numpy as np
+from PIL import Image
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+
 app = Flask(__name__)
 
 
@@ -234,8 +242,6 @@ def bookingCrawlTest():
 
 def shopee_crawler(keyword): # 可以放參數進去
 
-    # keyword = input('請輸入欲查詢的商品種類:')
-    # keyword = 'ps4'
     url = 'https://shopee.tw/api/v4/search/search_items?by=sales&keyword=' + keyword + '&limit=60&newest=0&order=desc&page_type=search&scenario=PAGE_GLOBAL_SEARCH&version=2'
     
     res = requests.get(url, headers = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'})
@@ -265,6 +271,53 @@ def shopee_crawler(keyword): # 可以放參數進去
         
         gift_list.append(shopee_dict)
 
+
+    cleaned = []
+
+    for outcome in resjson['items']:
+
+        cleaned.append(outcome['item_basic']['name'])
+        
+    articleAll = '\n'.join(cleaned)
+    articleAll.replace('\n', '')
+    
+    stopwords = {}.fromkeys(['也', '日', '月', '人', '在', '是', '的', '4', '5', '，', '、', ',', '!', '2', '3',
+                        '2022', '12', '2', '「', '」', '(', ')', '！', '（', '）', '。', '/', '／', '?','【', '】'])
+    
+    Sentence = jieba.cut_for_search(articleAll)
+
+    hash = {}
+    for item in Sentence:
+    
+        if item in stopwords:
+            continue
+        
+        if item in hash:
+            hash[item] +=1
+        else:
+            hash[item] = 1
+
+    bgimage = np.array(Image.open("static/heart.png"))
+
+        
+    wc = WordCloud(font_path = 'static/SNsanafonkaku.ttf',
+                   background_color = 'white',
+                   max_words = 500,
+                   stopwords = stopwords,
+                   mask = bgimage)
+
+    # 使用dictionary的內容產生文字
+    wc.generate_from_frequencies(hash)
+
+    # 視覺化呈現
+
+    # plt.imshow(wc)
+    # plt.axis('off')
+    # plt.figure(figsize=(50, 50), dpi = 600)
+    # plt.show()
+    wc.to_file('static/output.jpg')
+
+
     # print(gift_list)
     return gift_list
         
@@ -272,7 +325,7 @@ def shopee_crawler(keyword): # 可以放參數進去
 
 # 如果你使用 python app.py 指令運行的話也能透過以下程式碼來啟動 flask 。
 if __name__ == "__main__":
-     app.run(debug=True)
+     app.run(debug=True, port=5001)
 
 
 
