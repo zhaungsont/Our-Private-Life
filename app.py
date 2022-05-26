@@ -11,7 +11,8 @@ import bs4
 app = Flask(__name__)
 
 print('michael')
-
+print('erghegurehgiuerhgrehgeu rgherughriue')
+print('rgergregre')
 
 # 暫時，之後會去掉
 @app.route("/")
