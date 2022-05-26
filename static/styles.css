@@ -79,7 +79,7 @@ body{
 }
 
 .main-left h1{
-    font-family: 'Noto Serif TC', serif;
+    font-family: 'Noto Sans TC', sans-serif;
     text-align: center;
     font-size: 5em;
 }
@@ -368,8 +368,7 @@ p{
 }
 
 h3{
-
-    font-family: 'Noto Serif TC', serif;
+    font-family: 'Noto Sans TC', sans-serif;
 }
 
 .giftingbg{
@@ -413,6 +412,17 @@ h3{
 .giftcard-wrapper{
     margin: auto 15%;
     padding-bottom: 5em;
+}
+
+.wordcloud{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: aliceblue;
+}
+
+.wordcloud img{
+    border-radius: 30px;
 }
 
 .card-title{
