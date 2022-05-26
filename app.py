@@ -1,4 +1,5 @@
 from ast import keyword
+from glob import glob
 from flask import Flask, render_template, redirect
 from flask import request as flask_request
 
@@ -15,6 +16,9 @@ import numpy as np
 from PIL import Image
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
+
+import os
+import random
 
 app = Flask(__name__)
 
@@ -183,17 +187,32 @@ def booking():
 def gifting():
     return render_template('gifting.html', keyword='', data='!initial')
 
+# 在全域宣告「先前圖片名稱」
+prevname = 'output'
 
 @app.route('/gifting', methods=['POST'])
 def gifting_results():
+
+    global prevname
+    # 先把舊的文字雲刪掉
+    if os.path.exists(f"static/wordcloud/{prevname}.jpg"):
+        os.remove(f'static/wordcloud/{prevname}.jpg')
+
+    randname = str(random.random())[2:8]
+    
+    # 將本次名稱儲存到「先前圖片名稱」
+    prevname = randname
+    imgpath = f"static/wordcloud/{randname}.jpg"
+    
+
     keyword = flask_request.form.get('keyword')
     # 防呆機制
     if (keyword.strip() == ''):
         results = ''
     else:
-        results = shopee_crawler(keyword)
+        results = shopee_crawler(keyword, randname)
 
-    return render_template('gifting.html', data=results, keyword=keyword)
+    return render_template('gifting.html', data=results, keyword=keyword, imgname=imgpath)
 
 
 @app.route('/crawl')
@@ -240,7 +259,7 @@ def bookingCrawlTest():
     return render_template('testcrawl.html', plat='Booking.com', data=results, length=len(results))
 
 
-def shopee_crawler(keyword): # 可以放參數進去
+def shopee_crawler(keyword, randname): # 可以放參數進去
 
     url = 'https://shopee.tw/api/v4/search/search_items?by=sales&keyword=' + keyword + '&limit=60&newest=0&order=desc&page_type=search&scenario=PAGE_GLOBAL_SEARCH&version=2'
     
@@ -315,7 +334,9 @@ def shopee_crawler(keyword): # 可以放參數進去
     # plt.axis('off')
     # plt.figure(figsize=(50, 50), dpi = 600)
     # plt.show()
-    wc.to_file('static/output.jpg')
+
+    
+    wc.to_file(f'static/wordcloud/{randname}.jpg')
 
 
     # print(gift_list)
