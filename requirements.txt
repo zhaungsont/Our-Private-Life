@@ -1,0 +1,5 @@
+Flask
+gunicorn
+requests
+ssl
+bs4
