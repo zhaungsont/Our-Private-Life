@@ -3,3 +3,6 @@ gunicorn
 requests
 ssl
 bs4
+jieba
+Pillow
+numpy
