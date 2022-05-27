@@ -4,6 +4,11 @@ body{
 
 }
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 #navbar{
     background: rgb(148,214,226);
     background: linear-gradient(45deg, rgba(148,214,226,1) 0%, rgba(202,232,234,1) 100%);
@@ -100,7 +105,12 @@ body{
     color:rgb(250, 59, 174);
     text-align: center;
 }
+
 #description-section{
+    width: 110%;
+    position: relative;
+    left: -5%;
+    /* overflow: hidden; */
     background-color:rgba(0, 0, 0, 0.639);
     -moz-box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
     -webkit-box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
