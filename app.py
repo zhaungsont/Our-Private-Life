@@ -4,7 +4,7 @@ from flask import request as flask_request
 import requests, json
 
 import urllib.request as req
-# import ssl
+import ssl
 import bs4
 
 # wordcloud
