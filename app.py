@@ -213,48 +213,48 @@ def gifting_results():
     return render_template('gifting.html', data=results, keyword=keyword, imgname=imgpath)
 
 
-@app.route('/crawl')
-def bookingCrawlTest():
+# @app.route('/crawl')
+# def bookingCrawlTest():
     # url = 'https://www.booking.com/searchresults.zh-tw.html?label=gen173nr-1DCAEoggI46AdIM1gEaOcBiAEBmAEwuAEHyAEM2AED6AEBiAIBqAIDuALkn--TBsACAdICJDc2YTkwMmE4LTZiMjUtNGFiNy05OGVlLTllYTM5NWUwOTM3MdgCBOACAQ&sid=ef8c2cbf788afd9c67d94d6da125590a&sb=1&sb_lp=1&src=index&src_elem=sb&error_url=https%3A%2F%2Fwww.booking.com%2Findex.zh-tw.html%3Flabel%3Dgen173nr-1DCAEoggI46AdIM1gEaOcBiAEBmAEwuAEHyAEM2AED6AEBiAIBqAIDuALkn--TBsACAdICJDc2YTkwMmE4LTZiMjUtNGFiNy05OGVlLTllYTM5NWUwOTM3MdgCBOACAQ%3Bsid%3Def8c2cbf788afd9c67d94d6da125590a%3Bsb_price_type%3Dtotal%26%3B&ss=%E5%8F%B0%E5%8C%97%2C+%E5%8F%B0%E5%8C%97%E5%9C%B0%E5%8D%80%2C+%E8%87%BA%E7%81%A3&is_ski_area=&checkin_year=&checkin_month=&checkout_year=&checkout_month=&group_adults=2&group_children=0&no_rooms=1&b_h4u_keep_filters=&from_sf=1&ss_raw=%E5%8F%B0%E5%8C%97&ac_position=0&ac_langcode=xt&ac_click_type=b&dest_id=-2637882&dest_type=city&iata=TPE&place_id_lat=25.046236&place_id_lon=121.51763&search_pageview_id=68a569b2f22c017a&search_selected=true&search_pageview_id=68a569b2f22c017a&ac_suggestion_list_length=5&ac_suggestion_theme_list_length=0'
     #url = 'https://www.booking.com/searchresults.zh-tw.html?ss=%E5%8F%B0%E5%8C%97&ssne=%E5%8F%B0%E5%8C%97&ssne_untouched=%E5%8F%B0%E5%8C%97&label=gen173nr-1DCAEoggI46AdIM1gEaOcBiAEBmAEwuAEHyAEM2AED6AEBiAIBqAIDuALkn--TBsACAdICJDc2YTkwMmE4LTZiMjUtNGFiNy05OGVlLTllYTM5NWUwOTM3MdgCBOACAQ&sid=ef8c2cbf788afd9c67d94d6da125590a&aid=304142&lang=zh-tw&sb=1&src_elem=sb&src=searchresults&dest_id=-2637882&dest_type=city&checkin=2022-08-15&checkout=2022-08-16&group_adults=2&no_rooms=1&group_children=0&sb_travel_purpose=leisure'
-    price_class = 'fcab3ed991 bd73d13072'
-    title_and_img_class = 'b8b0793b0e'
-    order_url_class = 'e13098a59f'
+    # price_class = 'fcab3ed991 bd73d13072'
+    # title_and_img_class = 'b8b0793b0e'
+    # order_url_class = 'e13098a59f'
 
     # 建立一個 Request 物件，附加 Request headers 的資訊
-    request = req.Request(url, headers={
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36"
-    })
-    with req.urlopen(request) as response:
-        data = response.read().decode("utf-8")
+    # request = req.Request(url, headers={
+    #     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36"
+    # })
+    # with req.urlopen(request) as response:
+    #     data = response.read().decode("utf-8")
 
-    root = bs4.BeautifulSoup(data, "html.parser")
+    # root = bs4.BeautifulSoup(data, "html.parser")
 
-    title_and_img = root.find_all("img", class_=title_and_img_class)
-    prices = root.find_all("span", class_=price_class)
-    order_portals = root.find_all("a", class_=order_url_class)
+    # title_and_img = root.find_all("img", class_=title_and_img_class)
+    # prices = root.find_all("span", class_=price_class)
+    # order_portals = root.find_all("a", class_=order_url_class)
 
-    imgurl_list = []
-    title_list = []
-    results = []
+    # imgurl_list = []
+    # title_list = []
+    # results = []
 
-    for entry in title_and_img:
-        imgurl_list.append(entry['src'])
-        title_list.append(entry['alt'])
+    # for entry in title_and_img:
+    #     imgurl_list.append(entry['src'])
+    #     title_list.append(entry['alt'])
 
-    for i in range(len(imgurl_list)):
-        new_entry = {}
-        new_entry['title'] = title_list[i]
-        new_entry['img'] = imgurl_list[i]
-        new_entry['price'] = prices[i].string
-        new_entry['order'] = order_portals[i]['href']
-        results.append(new_entry)
+    # for i in range(len(imgurl_list)):
+    #     new_entry = {}
+    #     new_entry['title'] = title_list[i]
+    #     new_entry['img'] = imgurl_list[i]
+    #     new_entry['price'] = prices[i].string
+    #     new_entry['order'] = order_portals[i]['href']
+    #     results.append(new_entry)
 
     # print(results)
 
     # results = dict(zip(booking_com_title_list, booking_com_imgurl_list))
     # print(results)
-    return render_template('testcrawl.html', plat='Booking.com', data=results, length=len(results))
+    # return render_template('testcrawl.html', plat='Booking.com', data=results, length=len(results))
 
 
 def shopee_crawler(keyword, randname): # 可以放參數進去
