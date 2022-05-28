@@ -211,7 +211,7 @@ def booking():
     
 
     location = flask_request.form.get('bookingLoc')
-    return render_template('booking.html', data=results)
+    return render_template('booking.html', data=results, year1=year1, month1=month1, date1=date1, year2=year2, month2=month2, date2=date2, ad=ad, ch=ch, room=room)
 
 @app.route('/gifting')
 def gifting():
