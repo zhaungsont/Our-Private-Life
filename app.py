@@ -115,13 +115,17 @@ def submit():
 @app.route("/booking_select",methods=['POST','GET'])
 def booking_people():
     loc = flask_request.form.get("bookingLoc")
+    #loc 抓取 bookingLoc 資料
+    #bookingLoc 來自 booking.html input type="hidden"
     return render_template('booking_select.html',bookingLoc=loc)
+    #returm 到booking_select.html 並將 loc 抓到的資料丟到booking_select.html
 
 
 
 
 @app.route('/booking', methods=['POST','GET'])
 def booking():
+    #將 booking_select.html 選擇的數據回傳並儲存在各自的變數內
     year1 = flask_request.form.get('check_in_year')
     month1 = flask_request.form.get('check_in_month')
     date1= flask_request.form.get('check_in_date')
@@ -131,6 +135,7 @@ def booking():
     ad = flask_request.form.get('ad')
     ch = flask_request.form.get('ch')
     room = flask_request.form.get('room')
+    #在終端機輸出 確保資料抓取正確
     print(year1)
     print(month1)
     print(date1)
@@ -140,65 +145,68 @@ def booking():
     print(ad)
     print(ch)
     print(room)
+    #將變數帶入 url 內 並用此 url 進行爬蟲
     url=f"https://www.booking.com/searchresults.zh-tw.html?label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&ss=%E5%8F%B0%E5%8C%97&ssne=%E5%8F%B0%E5%8C%97&ssne_untouched=%E5%8F%B0%E5%8C%97&lang=zh-tw&sb=1&src_elem=sb&dest_id=-2637882&dest_type=city&checkin={year1}-{month1}-{date1}&checkout={year2}-{month2}-{date2}&group_adults={ad}&no_rooms={room}&group_children={ch}&sb_travel_purpose=leisure&order=class"
     print("***********")
     print(url)
     print("***********")
+    #booking網頁內部要抓取的目標標籤名稱
     price_class = 'fcab3ed991 bd73d13072'
     title_and_img_class = 'b8b0793b0e'
     order_url_class = 'e13098a59f'
-    #url=f"https://www.booking.com/searchresults.zh-tw.html?label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&ss=%E5%8F%B0%E5%8C%97&ssne=%E5%8F%B0%E5%8C%97&ssne_untouched=%E5%8F%B0%E5%8C%97&lang=zh-tw&sb=1&src_elem=sb&dest_id=-2637882&dest_type=city&checkin={year1}-{month1}-{date1}&checkout={year2}-{month2}-{date2}&group_adults=2&no_rooms=1&group_children=0&sb_travel_purpose=leisure&order=class"
-    #試用URL
-    #url="https://www.booking.com/searchresults.zh-tw.html?label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&ss=%E5%8F%B0%E5%8C%97&ssne=%E5%8F%B0%E5%8C%97&ssne_untouched=%E5%8F%B0%E5%8C%97&lang=zh-tw&sb=1&src_elem=sb&dest_id=-2637882&dest_type=city&checkin=2022-08-01&checkout=2022-08-02&group_adults=3&no_rooms=2&group_children=1&sb_travel_purpose=leisure&order=class"
+    #爬蟲抓取
     request = req.Request(url, headers={
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36"
     })
-
+    #取的網頁的原始碼 並用decode("utf-8")來翻譯成中文
     with req.urlopen(request) as response:
         data = response.read().decode("utf-8")
-        
+    #解析方法
     root = bs4.BeautifulSoup(data, "html.parser")
-
+    #抓取對應標籤之資料
     title_and_img = root.find_all("img", class_=title_and_img_class)
     prices = root.find_all("span", class_=price_class)
     order_portals = root.find_all("a", class_=order_url_class)
     money=root.find_all("span",class_='fcab3ed991 bd73d13072')
     score=root.find_all('div',class_='b5cd09854e d10a6220b4')
-
+    #設定空list
     imgurl_list = []
     title_list = []
     results = []
     money_text=[]
     score_text=[]
 
-
+    #將變數 money 資料放入 money_text list
     for M in money:
         money_text.append(M.text)
-
+    #將變數 score 資料放入 score_text list
     for S in score:
         score_text.append(S.text)   
-        
+    #將變數 title_and_img 資料放入 imgurl_list & title_list
     for entry in title_and_img:
         imgurl_list.append(entry['src'])
         title_list.append(entry['alt'])
-
+    #抓取價錢資料
     money_list=[]
+    #根據 money_text 長度判斷跑幾次 將\xa0取代為空白
+    # money_text 放入 money_list
     for j in range(len(money_text)):
         Mtext=money_text[j].replace(u'\xa0', ' ')
         money_list=money_list+[Mtext]
-
+    #抓取評價資料
     score=root.find_all('div',class_='b5cd09854e d10a6220b4')
     score_C=[]
+    #根據 score_text 長度判斷跑幾次 將\xa0取代為空白
     for S in range(len(score_text)):
         Stext=score_text[S].replace(u'\xa0', ' ')
         
         score_C=score_C+[Stext]
-
+    #將評價資料加上文字
     score_list=[]
     for T in range(len(score_C)):
         score_n="評分:"+score_C[T]+"分"
         score_list=score_list+[score_n]
-
+    #將所有抓取到的資料list 照順序存進字典 new_entry
     for i in range(len(imgurl_list)):
             new_entry = {}
             new_entry['title'] = title_list[i]
@@ -207,11 +215,9 @@ def booking():
             new_entry['order'] = order_portals[i]['href']
             new_entry["score"] =score_list[i]
             results.append(new_entry)
-
-    
-
-    location = flask_request.form.get('bookingLoc')
+    #將資料return到booking.html        
     return render_template('booking.html', data=results, year1=year1, month1=month1, date1=date1, year2=year2, month2=month2, date2=date2, ad=ad, ch=ch, room=room)
+
 
 @app.route('/gifting')
 def gifting():
