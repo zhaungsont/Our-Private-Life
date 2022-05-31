@@ -2,7 +2,6 @@ from flask import Flask, render_template, redirect
 from flask import request as flask_request
 
 import requests, json
-from flask import request
 
 import urllib.request as req
 import ssl
@@ -81,7 +80,7 @@ def dating_results():
     })
 
     # 選擇不用認證此 SSL 憑證
-    ssl._create_default_https_context = ssl._create_unverified_context
+    # ssl._create_default_https_context = ssl._create_unverified_context
 
     with req.urlopen(request) as response:
         data=response.read().decode("utf-8")
