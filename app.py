@@ -18,6 +18,11 @@ import matplotlib.pyplot as plt
 
 import os
 import random
+from bs4 import BeautifulSoup
+
+from selenium import webdriver
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.by import By
 
 app = Flask(__name__)
 
@@ -38,19 +43,32 @@ def dating():
 @app.route('/dating', methods=['POST'])
 def dating_results():
     location = flask_request.form.get('location')
+    weather(location)
 
-
-    print(f'location= {location}')
+    #print(f'location= {location}')
 
     if location == 'taipei':
         url="https://www.dcard.tw/topics/%E5%8F%B0%E5%8C%97%E6%99%AF%E9%BB%9E"
+    elif location == 'newtaipei':
+        url='https://www.dcard.tw/search/posts?forum=travel&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%99%AF%E9%BB%9E'
+    elif location == 'yilan':
+        url='https://www.dcard.tw/search/posts?forum=travel&query=%E5%AE%9C%E8%98%AD&sort=relevance'
+    elif location == 'hualiang':
+        url='https://www.dcard.tw/topics/%E8%8A%B1%E8%93%AE%E6%99%AF%E9%BB%9E'
+    elif location == 'taidung':
+        url='https://www.dcard.tw/topics/%E5%8F%B0%E6%9D%B1%E6%99%AF%E9%BB%9E'
     elif location =='taichung':
         url='https://www.dcard.tw/topics/%E5%8F%B0%E4%B8%AD%E6%99%AF%E9%BB%9E'
+    elif location == 'miaoli':
+        url='https://www.dcard.tw/topics/%E8%8B%97%E6%A0%97?forums=travel'
     elif location == 'tainan':
         url='https://www.dcard.tw/topics/%E5%8F%B0%E5%8D%97%E6%99%AF%E9%BB%9E'
     elif location == 'kaohsiung':
         url='https://www.dcard.tw/topics/%E9%AB%98%E9%9B%84%E6%99%AF%E9%BB%9E'
-    
+    elif location == 'pingtung':
+        url='https://www.dcard.tw/topics/%E5%B1%8F%E6%9D%B1?forums=travel'
+
+
     print(f'url={url}')
 
     #爬html
@@ -80,7 +98,7 @@ def dating_results():
             'title': new_title,
             'url': new_url
         }
-        
+
         list_results.append(results)
     # print('接下來是用新方法取得到Dcard的標題：', list_results)
     # ~~~新方法~~~
@@ -119,6 +137,51 @@ def submit():
     date = request.values['date']
     print(date)
     return render_template('submit.html',**locals())
+
+    
+
+def weather(loc):
+    print(loc)
+
+    driverPath='static/chromedriver'
+    browser=webdriver.Chrome(driverPath)
+
+    url='https://www.cwb.gov.tw/V8/C/W/County/County.html?CID=63'
+    browser.get(url)
+
+    s=Select(browser.find_element(By.ID,'CID'))
+    if loc=='taipei':
+        s2=s.select_by_value("63") #選擇縣市
+    elif loc == 'newtaipei':
+        s2=s.select_by_value("65") #選擇縣市
+    elif loc == 'yilan':
+        s2=s.select_by_value("10002") #選擇縣市
+    elif loc == 'hualiang':
+        s2=s.select_by_value("10015") #選擇縣市
+    elif loc == 'taidung':
+        s2=s.select_by_value("10014") #選擇縣市
+    elif loc =='taichung':
+        s2=s.select_by_value("66") #選擇縣市
+    elif loc == 'miaoli':
+        s2=s.select_by_value("10005") #選擇縣市
+    elif loc == 'tainan':
+        s2=s.select_by_value("67") #選擇縣市
+    elif loc == 'kaohsiung':
+        s2=s.select_by_value("64") #選擇縣市
+    elif loc == 'pingtung':
+        s2=s.select_by_value("10013") #選擇縣市
+
+    soup=BeautifulSoup(browser.page_source,'lxml')
+    temperature=soup.select_one('li:nth-child(2)>span.tem>span.tem-C.is-active').text
+    info=browser.find_element(By.XPATH, "//*[@id='marquee_1']").text 
+    new_info=info.replace('\n看更多','')
+
+    #results=
+    print(temperature) #所選縣市氣溫
+    print(new_info) #所選縣市天氣狀況
+    r = [temperature, new_info]
+
+    return render_template('dating.html')
 
 
 @app.route("/booking_select",methods=['POST','GET'])
