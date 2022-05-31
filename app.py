@@ -24,6 +24,9 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 
+# headless
+from selenium.webdriver.chrome.options import Options  
+
 app = Flask(__name__)
 
 
@@ -143,33 +146,38 @@ def submit():
 def weather(loc):
     print(loc)
 
-    driverPath='static/chromedriver'
-    browser=webdriver.Chrome(driverPath)
+    # driverPath='static/chromedriver'
+    # browser=webdriver.Chrome(driverPath)
+    chrome_options = Options()  
+    chrome_options.add_argument("--headless")  
+
+    browser = webdriver.Chrome(chrome_options=chrome_options, executable_path='static/chromedriver')  
+
 
     url='https://www.cwb.gov.tw/V8/C/W/County/County.html?CID=63'
     browser.get(url)
 
     s=Select(browser.find_element(By.ID,'CID'))
     if loc=='taipei':
-        s2=s.select_by_value("63") #選擇縣市
+        s.select_by_value("63") #選擇縣市
     elif loc == 'newtaipei':
-        s2=s.select_by_value("65") #選擇縣市
+        s.select_by_value("65") #選擇縣市
     elif loc == 'yilan':
-        s2=s.select_by_value("10002") #選擇縣市
+        s.select_by_value("10002") #選擇縣市
     elif loc == 'hualiang':
-        s2=s.select_by_value("10015") #選擇縣市
+        s.select_by_value("10015") #選擇縣市
     elif loc == 'taidung':
-        s2=s.select_by_value("10014") #選擇縣市
+        s.select_by_value("10014") #選擇縣市
     elif loc =='taichung':
-        s2=s.select_by_value("66") #選擇縣市
+        s.select_by_value("66") #選擇縣市
     elif loc == 'miaoli':
-        s2=s.select_by_value("10005") #選擇縣市
+        s.select_by_value("10005") #選擇縣市
     elif loc == 'tainan':
-        s2=s.select_by_value("67") #選擇縣市
+        s.select_by_value("67") #選擇縣市
     elif loc == 'kaohsiung':
-        s2=s.select_by_value("64") #選擇縣市
+        s.select_by_value("64") #選擇縣市
     elif loc == 'pingtung':
-        s2=s.select_by_value("10013") #選擇縣市
+        s.select_by_value("10013") #選擇縣市
 
     soup=BeautifulSoup(browser.page_source,'lxml')
     temperature=soup.select_one('li:nth-child(2)>span.tem>span.tem-C.is-active').text
