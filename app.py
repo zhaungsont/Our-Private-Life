@@ -179,7 +179,7 @@ def weather(loc):
     elif loc == 'pingtung':
         s.select_by_value("10013") #選擇縣市
 
-    soup=BeautifulSoup(browser.page_source,'lxml')
+    soup=BeautifulSoup(browser.page_source,'html.parser')
     temperature=soup.select_one('li:nth-child(2)>span.tem>span.tem-C.is-active').text
     info=browser.find_element(By.XPATH, "//*[@id='marquee_1']").text 
     new_info=info.replace('\n看更多','')
