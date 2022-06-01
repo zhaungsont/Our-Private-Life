@@ -8,15 +8,6 @@
 <section id="dating">
     <h1 class="dating-title">規劃一場完美約會。</h1>
     <form class="desination-form" onsubmit="handleSubmit()" id="locForm" action="dating" method="post">
-        <!-- <select class="form-select" required name="location" id="location">
-                <option disabled selected>請選擇旅遊景點</option>
-                <option value="taipei">台北</option>
-                <option value="taichung">台中</option>
-                <option value="taichung">台南</option>
-                <option value="kaohsiung">高雄</option>
-        </select>
-        <button id="submit" type="submit" class="btn btn-primary btn-sm">看看推薦行程！</button> -->
-        
         <div class="input-group">
             <select class="form-select" required name="location" id="location">
                 <option disabled selected>請選擇旅遊景點</option>
@@ -43,9 +34,14 @@
             <ol>
                 {% if results %}
                     <h2>景點相關資訊</h2>
+                    <div class="list-group">
                     {% for dict_item in results  %}
-                        <li><a href= {{ dict_item['url'] }} >{{dict_item['title']}}</a></li>
+                        <a href={{ dict_item['url'] }} class="list-group-item list-group-item-action">
+                            {{dict_item['title']}}
+                        </a>
+                        <!-- <li><a href= {{ dict_item['url'] }} >{{dict_item['title']}}</a></li> -->
                     {% endfor %}
+                    </div>
                 {% endif %}
             </ol>
         </div>
