@@ -2,7 +2,6 @@ from flask import Flask, render_template, redirect
 from flask import request as flask_request
 
 import requests, json
-from flask import request
 
 import urllib.request as req
 import ssl
