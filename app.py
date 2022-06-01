@@ -85,7 +85,7 @@ def dating_results():
     print(f'url={url}')
 
     #爬html
-    return_request=req.Request(url,headers={
+    request=req.Request(url,headers={
         #若網站有cookie，也是放這
         "User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36"
     })
@@ -93,7 +93,7 @@ def dating_results():
     # 選擇不用認證此 SSL 憑證
     # ssl._create_default_https_context = ssl._create_unverified_context
 
-    with req.urlopen(return_request) as response:
+    with req.urlopen(request) as response:
         data=response.read().decode("utf-8")
     
     root=bs4.BeautifulSoup(data,"html.parser")
