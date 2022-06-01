@@ -4,7 +4,7 @@ from flask import request as flask_request
 import requests, json
 
 import urllib.request as req
-import ssl
+# import ssl
 import bs4
 
 # wordcloud
@@ -50,8 +50,6 @@ def dating_results():
     location = flask_request.form.get('location')
     weather(location)
 
-    #print(f'location= {location}')
-
     if location == 'taipei':
         loc_name = '台北'
         url="https://www.dcard.tw/topics/%E5%8F%B0%E5%8C%97%E6%99%AF%E9%BB%9E"
@@ -93,7 +91,7 @@ def dating_results():
     })
 
     # 選擇不用認證此 SSL 憑證
-    ssl._create_default_https_context = ssl._create_unverified_context
+    # ssl._create_default_https_context = ssl._create_unverified_context
 
     with req.urlopen(request) as response:
         data=response.read().decode("utf-8")
@@ -115,46 +113,10 @@ def dating_results():
         }
 
         list_results.append(results)
-    # print('接下來是用新方法取得到Dcard的標題：', list_results)
-    # ~~~新方法~~~
-
-
-    # ~~~舊方法~~~
-    # for title in root.find_all("a",class_="sc-a230363e-3 dsTKss"): # sc-b205d8ae-3 iOQsOu
-        
-    #     get_title="{}".format(title.text)
-    #     get_url="https://www.dcard.tw"+title.get("href")
-    #     dummy_results = {
-    #         'title': get_title,
-    #         'url': get_url
-    #     }
-    #     list_results.append(dummy_results)
-    
-    # print(f'list results={list_results}')
-    # ~~~舊方法~~~
-
 
     return render_template('dating.html', results=list_results, bookingValue=location, locationName=loc_name)
-    # return render_template('dating.html')
-#測試用
-# @app.route("/getname", methods=['GET'])
-# def getname():
-#     name = request.args.get('name')
-#     return render_template('get.html',**locals())
-#測試用
-# @app.route("/form")
-# def form():
-
-#     return render_template('form.html')
-
-# @app.route("/submit", methods=['POST'])
-# def submit():
-#     date = request.values['date']
-#     print(date)
-#     return render_template('submit.html',**locals())
 
     
-
 def weather(loc):
     print(loc)
 

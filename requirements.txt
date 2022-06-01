@@ -7,4 +7,3 @@ Pillow
 numpy
 wordcloud
 selenium
-ssl
