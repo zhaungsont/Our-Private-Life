@@ -85,7 +85,7 @@ def dating_results():
     print(f'url={url}')
 
     #爬html
-    request=req.Request(url,headers={
+    return_request=req.Request(url,headers={
         #若網站有cookie，也是放這
         "User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36"
     })
@@ -93,7 +93,7 @@ def dating_results():
     # 選擇不用認證此 SSL 憑證
     # ssl._create_default_https_context = ssl._create_unverified_context
 
-    with req.urlopen(request) as response:
+    with req.urlopen(return_request) as response:
         data=response.read().decode("utf-8")
     
     root=bs4.BeautifulSoup(data,"html.parser")
@@ -169,38 +169,7 @@ def weather(loc):
 @app.route("/booking_select",methods=['POST','GET'])
 def booking_people():
     loc = flask_request.form.get("bookingLoc")
-    # if loc == 'taipei':
-    #     # loc = '台北%2C+台湾&ssne=台北'
-    #     url="https://www.dcard.tw/topics/%E5%8F%B0%E5%8C%97%E6%99%AF%E9%BB%9E"
-    # elif loc == 'newtaipei':
-    #     # loc = '新北市%2C+台湾&ssne=台北'
-    #     url='https://www.dcard.tw/search/posts?forum=travel&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%99%AF%E9%BB%9E'
-    # elif loc == 'yilan':
-    #     # loc = '宜蘭縣%2C+臺灣&ssne=宜蘭縣'
-    #     url='https://www.dcard.tw/search/posts?forum=travel&query=%E5%AE%9C%E8%98%AD&sort=relevance'
-    # elif loc == 'hualiang':
-    #     # loc = '花蓮市%2C+花蓮縣%2C+臺灣'
-    #     url='https://www.dcard.tw/topics/%E8%8A%B1%E8%93%AE%E6%99%AF%E9%BB%9E'
-    # elif loc == 'taidung':
-    #     # loc = '台東市%2C+台東縣%2C+臺灣'
-    #     url='https://www.dcard.tw/topics/%E5%8F%B0%E6%9D%B1%E6%99%AF%E9%BB%9E'
-    # elif loc =='taichung':
-    #     # loc = '台中市%2C+台中地区%2C+台湾'
-    #     url='https://www.dcard.tw/topics/%E5%8F%B0%E4%B8%AD%E6%99%AF%E9%BB%9E'
-    # elif loc == 'miaoli':
-    #     # loc = '苗栗縣&ssne=苗栗縣&ssne_untouched=苗栗縣'
-    #     url='https://www.dcard.tw/topics/%E8%8B%97%E6%A0%97?forums=travel'
-    # elif loc == 'tainan':
-    #     # loc = '台南%2C+台南地区%2C+台湾'
-    #     url='https://www.dcard.tw/topics/%E5%8F%B0%E5%8D%97%E6%99%AF%E9%BB%9E'
-    # elif loc == 'kaohsiung':
-    #     loc = '高雄&ssne=台北&ssne_untouched=台北'
-    #     url='https://www.dcard.tw/topics/%E9%AB%98%E9%9B%84%E6%99%AF%E9%BB%9E'
-    # elif loc == 'pingtung':
-    #     loc = '屏東市%2C+屏東縣%2C+臺灣'
-    #     url='https://www.dcard.tw/topics/%E5%B1%8F%E6%9D%B1?forums=travel'
-    # else:
-    #     loc = 'error'
+
     #loc 抓取 bookingLoc 資料
     #bookingLoc 來自 booking.html input type="hidden"
     return render_template('booking_select.html',bookingLoc=loc)
