@@ -27,6 +27,9 @@ from selenium.webdriver.common.by import By
 # headless
 from selenium.webdriver.chrome.options import Options  
 
+# convert chinese strings to url encoding
+import urllib.parse
+
 app = Flask(__name__)
 
 
@@ -51,24 +54,34 @@ def dating_results():
     #print(f'location= {location}')
 
     if location == 'taipei':
+        loc_name = '台北'
         url="https://www.dcard.tw/topics/%E5%8F%B0%E5%8C%97%E6%99%AF%E9%BB%9E"
     elif location == 'newtaipei':
+        loc_name = '新北'
         url='https://www.dcard.tw/search/posts?forum=travel&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%99%AF%E9%BB%9E'
     elif location == 'yilan':
+        loc_name = '宜蘭'
         url='https://www.dcard.tw/search/posts?forum=travel&query=%E5%AE%9C%E8%98%AD&sort=relevance'
     elif location == 'hualiang':
+        loc_name = '花蓮'
         url='https://www.dcard.tw/topics/%E8%8A%B1%E8%93%AE%E6%99%AF%E9%BB%9E'
     elif location == 'taidung':
+        loc_name = '台東'
         url='https://www.dcard.tw/topics/%E5%8F%B0%E6%9D%B1%E6%99%AF%E9%BB%9E'
     elif location =='taichung':
+        loc_name = '台中'
         url='https://www.dcard.tw/topics/%E5%8F%B0%E4%B8%AD%E6%99%AF%E9%BB%9E'
     elif location == 'miaoli':
+        loc_name = '苗栗'
         url='https://www.dcard.tw/topics/%E8%8B%97%E6%A0%97?forums=travel'
     elif location == 'tainan':
+        loc_name = '台南'
         url='https://www.dcard.tw/topics/%E5%8F%B0%E5%8D%97%E6%99%AF%E9%BB%9E'
     elif location == 'kaohsiung':
+        loc_name = '高雄'
         url='https://www.dcard.tw/topics/%E9%AB%98%E9%9B%84%E6%99%AF%E9%BB%9E'
     elif location == 'pingtung':
+        loc_name = '屏東'
         url='https://www.dcard.tw/topics/%E5%B1%8F%E6%9D%B1?forums=travel'
 
 
@@ -122,24 +135,24 @@ def dating_results():
     # ~~~舊方法~~~
 
 
-    return render_template('dating.html', results=list_results, bookingValue='taipei')
+    return render_template('dating.html', results=list_results, bookingValue=location, locationName=loc_name)
     # return render_template('dating.html')
 #測試用
-@app.route("/getname", methods=['GET'])
-def getname():
-    name = request.args.get('name')
-    return render_template('get.html',**locals())
+# @app.route("/getname", methods=['GET'])
+# def getname():
+#     name = request.args.get('name')
+#     return render_template('get.html',**locals())
 #測試用
-@app.route("/form")
-def form():
+# @app.route("/form")
+# def form():
 
-    return render_template('form.html')
+#     return render_template('form.html')
 
-@app.route("/submit", methods=['POST'])
-def submit():
-    date = request.values['date']
-    print(date)
-    return render_template('submit.html',**locals())
+# @app.route("/submit", methods=['POST'])
+# def submit():
+#     date = request.values['date']
+#     print(date)
+#     return render_template('submit.html',**locals())
 
     
 
@@ -195,6 +208,38 @@ def weather(loc):
 @app.route("/booking_select",methods=['POST','GET'])
 def booking_people():
     loc = flask_request.form.get("bookingLoc")
+    # if loc == 'taipei':
+    #     # loc = '台北%2C+台湾&ssne=台北'
+    #     url="https://www.dcard.tw/topics/%E5%8F%B0%E5%8C%97%E6%99%AF%E9%BB%9E"
+    # elif loc == 'newtaipei':
+    #     # loc = '新北市%2C+台湾&ssne=台北'
+    #     url='https://www.dcard.tw/search/posts?forum=travel&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%99%AF%E9%BB%9E'
+    # elif loc == 'yilan':
+    #     # loc = '宜蘭縣%2C+臺灣&ssne=宜蘭縣'
+    #     url='https://www.dcard.tw/search/posts?forum=travel&query=%E5%AE%9C%E8%98%AD&sort=relevance'
+    # elif loc == 'hualiang':
+    #     # loc = '花蓮市%2C+花蓮縣%2C+臺灣'
+    #     url='https://www.dcard.tw/topics/%E8%8A%B1%E8%93%AE%E6%99%AF%E9%BB%9E'
+    # elif loc == 'taidung':
+    #     # loc = '台東市%2C+台東縣%2C+臺灣'
+    #     url='https://www.dcard.tw/topics/%E5%8F%B0%E6%9D%B1%E6%99%AF%E9%BB%9E'
+    # elif loc =='taichung':
+    #     # loc = '台中市%2C+台中地区%2C+台湾'
+    #     url='https://www.dcard.tw/topics/%E5%8F%B0%E4%B8%AD%E6%99%AF%E9%BB%9E'
+    # elif loc == 'miaoli':
+    #     # loc = '苗栗縣&ssne=苗栗縣&ssne_untouched=苗栗縣'
+    #     url='https://www.dcard.tw/topics/%E8%8B%97%E6%A0%97?forums=travel'
+    # elif loc == 'tainan':
+    #     # loc = '台南%2C+台南地区%2C+台湾'
+    #     url='https://www.dcard.tw/topics/%E5%8F%B0%E5%8D%97%E6%99%AF%E9%BB%9E'
+    # elif loc == 'kaohsiung':
+    #     loc = '高雄&ssne=台北&ssne_untouched=台北'
+    #     url='https://www.dcard.tw/topics/%E9%AB%98%E9%9B%84%E6%99%AF%E9%BB%9E'
+    # elif loc == 'pingtung':
+    #     loc = '屏東市%2C+屏東縣%2C+臺灣'
+    #     url='https://www.dcard.tw/topics/%E5%B1%8F%E6%9D%B1?forums=travel'
+    # else:
+    #     loc = 'error'
     #loc 抓取 bookingLoc 資料
     #bookingLoc 來自 booking.html input type="hidden"
     return render_template('booking_select.html',bookingLoc=loc)
@@ -206,6 +251,7 @@ def booking_people():
 @app.route('/booking', methods=['POST','GET'])
 def booking():
     #將 booking_select.html 選擇的數據回傳並儲存在各自的變數內
+    location = flask_request.form.get('bookingLoc')
     year1 = flask_request.form.get('check_in_year')
     month1 = flask_request.form.get('check_in_month')
     date1= flask_request.form.get('check_in_date')
@@ -216,20 +262,52 @@ def booking():
     ch = flask_request.form.get('ch')
     room = flask_request.form.get('room')
     #在終端機輸出 確保資料抓取正確
-    print(year1)
-    print(month1)
-    print(date1)
-    print(year2)
-    print(month2)
-    print(date2)
-    print(ad)
-    print(ch)
-    print(room)
+
+    cat = f'checkin={year1}-{month1}-{date1}&checkout={year2}-{month2}-{date2}&group_adults={ad}&no_rooms={room}&group_children={ch}&sb_travel_purpose=leisure'
+    
+    if location == 'taipei':
+        url = 'https://www.booking.com/searchresults.zh-tw.html?ss=%E5%8F%B0%E5%8C%97&ssne=%E5%8F%B0%E5%8C%97&ssne_untouched=%E5%8F%B0%E5%8C%97&label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&lang=zh-tw&sb=1&src_elem=sb&src=searchresults&dest_id=-2637882&dest_type=city&' + cat
+    elif location == 'newtaipei':
+        url = 'https://www.booking.com/searchresults.zh-tw.html?ss=%E6%96%B0%E5%8C%97%E5%B8%82%2C+%E5%8F%B0%E6%B9%BE&ssne=%E5%8F%B0%E5%8C%97&ssne_untouched=%E5%8F%B0%E5%8C%97&label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&lang=zh-tw&sb=1&src_elem=sb&src=searchresults&dest_id=5245&dest_type=region&ac_position=0&ac_click_type=b&ac_langcode=zh&ac_suggestion_list_length=5&search_selected=true&search_pageview_id=347f4713a16703de&' + cat
+    elif location == 'yilan':
+        url = 'https://www.booking.com/searchresults.zh-tw.html?ss=%E5%AE%9C%E8%98%AD&ssne=%E6%96%B0%E5%8C%97%E5%B8%82&ssne_untouched=%E6%96%B0%E5%8C%97%E5%B8%82&label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&lang=zh-tw&sb=1&src_elem=sb&src=searchresults&dest_id=5238&dest_type=region&ac_position=0&ac_click_type=b&ac_langcode=xt&ac_suggestion_list_length=5&search_selected=true&search_pageview_id=c8044752c4fe0421&' + cat
+    elif location == 'hualiang':
+        url='https://www.booking.com/searchresults.zh-tw.html?ss=%E8%8A%B1%E8%93%AE%E5%B8%82%2C+%E8%8A%B1%E8%93%AE%E7%B8%A3%2C+%E8%87%BA%E7%81%A3&ssne=%E5%AE%9C%E8%98%AD%E7%B8%A3&ssne_untouched=%E5%AE%9C%E8%98%AD%E7%B8%A3&label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&lang=zh-tw&sb=1&src_elem=sb&src=searchresults&dest_id=-2631690&dest_type=city&ac_position=0&ac_click_type=b&ac_langcode=xt&ac_suggestion_list_length=5&search_selected=true&search_pageview_id=fed64785bfba040a&' + cat
+    elif location == 'taidung':
+        url='https://www.booking.com/searchresults.zh-tw.html?ss=%E5%8F%B0%E6%9D%B1%E5%B8%82%2C+%E5%8F%B0%E6%9D%B1%E7%B8%A3%2C+%E8%87%BA%E7%81%A3&ssne=%E8%8A%B1%E8%93%AE%E5%B8%82&ssne_untouched=%E8%8A%B1%E8%93%AE%E5%B8%82&label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&lang=zh-tw&sb=1&src_elem=sb&src=searchresults&dest_id=-2637928&dest_type=city&ac_position=0&ac_click_type=b&ac_langcode=xt&ac_suggestion_list_length=5&search_selected=true&search_pageview_id=f80a48a1417e004e&' + cat
+    elif location =='taichung':
+        url='https://www.booking.com/searchresults.zh-tw.html?ss=%E5%8F%B0%E4%B8%AD%E5%B8%82%2C+%E5%8F%B0%E4%B8%AD%E5%9C%B0%E5%8C%BA%2C+%E5%8F%B0%E6%B9%BE&ssne=%E5%8F%B0%E6%9D%B1%E5%B8%82&ssne_untouched=%E5%8F%B0%E6%9D%B1%E5%B8%82&label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&lang=zh-tw&sb=1&src_elem=sb&src=searchresults&dest_id=-2637824&dest_type=city&ac_position=0&ac_click_type=b&ac_langcode=zh&ac_suggestion_list_length=5&search_selected=true&search_pageview_id=391048ad40ef0919&' + cat
+    elif location == 'miaoli':
+        url='https://www.booking.com/searchresults.zh-tw.html?ss=%E8%8B%97%E6%A0%97%E5%8E%BF%2C+%E5%8F%B0%E6%B9%BE&ssne=%E5%8F%B0%E4%B8%AD&ssne_untouched=%E5%8F%B0%E4%B8%AD&label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&lang=zh-tw&sb=1&src_elem=sb&src=searchresults&dest_id=5240&dest_type=region&ac_position=0&ac_click_type=b&ac_langcode=zh&ac_suggestion_list_length=5&search_selected=true&search_pageview_id=a07748bca8120782&checkin=2022-07-01&' + cat
+    elif location == 'tainan':
+        url='https://www.booking.com/searchresults.zh-tw.html?ss=%E5%8F%B0%E5%8D%97%2C+%E5%8F%B0%E5%8D%97%E5%9C%B0%E5%8C%BA%2C+%E5%8F%B0%E6%B9%BE&ssne=%E8%8B%97%E6%A0%97%E7%B8%A3&ssne_untouched=%E8%8B%97%E6%A0%97%E7%B8%A3&label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&lang=zh-tw&sb=1&src_elem=sb&src=searchresults&dest_id=-2637868&dest_type=city&ac_position=0&ac_click_type=b&ac_langcode=zh&ac_suggestion_list_length=5&search_selected=true&search_pageview_id=931e48c6582b0282&checkin=2022-07-01&' + cat
+    elif location == 'kaohsiung':
+        url='https://www.booking.com/searchresults.zh-tw.html?ss=%E9%AB%98%E9%9B%84%2C+%E9%AB%98%E9%9B%84%E5%9C%B0%E5%8C%BA%2C+%E5%8F%B0%E6%B9%BE&ssne=%E5%8F%B0%E5%8D%97&ssne_untouched=%E5%8F%B0%E5%8D%97&label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&lang=zh-tw&sb=1&src_elem=sb&src=searchresults&dest_id=-2632378&dest_type=city&ac_position=0&ac_click_type=b&ac_langcode=zh&ac_suggestion_list_length=5&search_selected=true&search_pageview_id=8a4048d33827001b&checkin=2022-07-01&' + cat
+    elif location == 'pingtung':
+        url='https://www.booking.com/searchresults.zh-tw.html?ss=%E5%B1%8F%E6%9D%B1%E5%B8%82%2C+%E5%B1%8F%E6%9D%B1%E7%B8%A3%2C+%E8%87%BA%E7%81%A3&ssne=%E9%AB%98%E9%9B%84&ssne_untouched=%E9%AB%98%E9%9B%84&label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&lang=zh-tw&sb=1&src_elem=sb&src=searchresults&dest_id=-2635731&dest_type=city&ac_position=0&ac_click_type=b&ac_langcode=xt&ac_suggestion_list_length=5&search_selected=true&search_pageview_id=706e48e23612046a&checkin=2022-07-01&' + cat
+    else:
+        location = 'error'
+    
+    # print(location)
+    # print(year1)
+    # print(month1)
+    # print(date1)
+    # print(year2)
+    # print(month2)
+    # print(date2)
+    # print(ad)
+    # print(ch)
+    # print(room)
     #將變數帶入 url 內 並用此 url 進行爬蟲
-    url=f"https://www.booking.com/searchresults.zh-tw.html?label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&ss=%E5%8F%B0%E5%8C%97&ssne=%E5%8F%B0%E5%8C%97&ssne_untouched=%E5%8F%B0%E5%8C%97&lang=zh-tw&sb=1&src_elem=sb&dest_id=-2637882&dest_type=city&checkin={year1}-{month1}-{date1}&checkout={year2}-{month2}-{date2}&group_adults={ad}&no_rooms={room}&group_children={ch}&sb_travel_purpose=leisure&order=class"
+
+    # endodedLoc = urllib.parse.quote(location, safe='&=')
+
+    # url=f"https://www.booking.com/searchresults.zh-tw.html?ss={endodedLoc}&label=booking-name-yefrPbbyS*FIINHgyCnmNgS267725091255%3Apl%3Ata%3Ap1%3Ap22%2C563%2C000%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp1012825%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfqnDqqG8nt1O4nYvDr1lms&sid=f403d2b3a73243d32c27dbfc3fa9f606&aid=376396&ss=%E5%8F%B0%E5%8C%97&ssne=%E5%8F%B0%E5%8C%97&ssne_untouched=%E5%8F%B0%E5%8C%97&lang=zh-tw&sb=1&src_elem=sb&dest_id=-2637882&dest_type=city&checkin={year1}-{month1}-{date1}&checkout={year2}-{month2}-{date2}&group_adults={ad}&no_rooms={room}&group_children={ch}&sb_travel_purpose=leisure&order=class"
     print("***********")
     print(url)
     print("***********")
+
+
     #booking網頁內部要抓取的目標標籤名稱
     price_class = 'fcab3ed991 bd73d13072'
     title_and_img_class = 'b8b0793b0e'
