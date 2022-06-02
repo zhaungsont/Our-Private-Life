@@ -48,6 +48,13 @@
         {% if results %}
             <div class="dating-right">
                 <div class="booking-suggestion">
+                    <div class="weather-wrapper">
+                        <img src="../static/cloudy.png" alt="">
+                        <div>
+                            <h3>當地天氣：{{ temp }} 度</h3>
+                            <p>{{ temp_desc }}</p>
+                        </div>
+                    </div>
                     <h1>在{{ locationName }}有住宿需求？</h1>
                     <p>立刻透過約會助理協助您尋找並下訂一趟完美行程。</p>
                     <form action="booking_select" method="post">

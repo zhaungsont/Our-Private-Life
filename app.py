@@ -48,7 +48,9 @@ def dating():
 @app.route('/dating', methods=['POST'])
 def dating_results():
     location = flask_request.form.get('location')
-    weather(location)
+    temp, temp_desc = weather(location)
+    print(temp)
+    print(temp_desc)
 
     if location == 'taipei':
         loc_name = '台北'
@@ -114,11 +116,10 @@ def dating_results():
 
         list_results.append(results)
 
-    return render_template('dating.html', results=list_results, bookingValue=location, locationName=loc_name)
+    return render_template('dating.html', results=list_results, bookingValue=location, locationName=loc_name, temp=temp, temp_desc=temp_desc)
 
     
 def weather(loc):
-    print(loc)
 
     # driverPath='static/chromedriver'
     # browser=webdriver.Chrome(driverPath)
@@ -161,9 +162,8 @@ def weather(loc):
     #results=
     print(temperature) #所選縣市氣溫
     print(new_info) #所選縣市天氣狀況
-    r = [temperature, new_info]
 
-    return render_template('dating.html')
+    return [temperature, new_info]
 
 
 @app.route("/booking_select",methods=['POST','GET'])

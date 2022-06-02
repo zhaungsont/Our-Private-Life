@@ -347,13 +347,17 @@ html, body {
     /* background-color: aqua; */
 }
 
+.weather-wrapper{
+    display: flex;
+    align-items: center;
+}
 
-/* .form-select{
-    max-width: 20em!important;
-    margin: 1em 0;
-} */
-
-
+.weather-wrapper img{
+    filter: invert(1);
+    width: 4em;
+    height: 4em;
+    margin-right: 1em;
+}
 
 
 
