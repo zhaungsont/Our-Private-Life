@@ -257,6 +257,10 @@ html, body {
 }
 
 #dating{
+    width: 110%;
+    position: relative;
+    left: -5%;
+
     margin-top: 16em;
     padding: 0 2em;
     color: white;
@@ -359,6 +363,56 @@ html, body {
     margin-right: 1em;
 }
 
+.bsform{
+    margin-left: 4em;
+    margin-right: 50%;
+}
+
+.bsspacer{
+    padding-bottom: 10em;
+}
+
+#booking-info{
+    
+    width: 110%;
+    position: relative;
+    left: -5%;
+
+    margin-top: 16em;
+    padding: 0 20%;
+    color: white;
+    /* make edges blurry */
+    /* 1px: Horizontal offset of the effect. Positive numbers shift it right, negative left.
+    2px: Vertical offset of the effect. Positive numbers shift it down, negative up.
+    3px: The blur effect.  0 means no blur.
+    color: The color of the shadow. */
+    background-color:rgba(0, 0, 0, 0.639);
+    -moz-box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
+    -webkit-box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
+    box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
+}
+
+.bookingflex{
+    display: flex;
+    justify-content: center;
+}
+
+#booking-cards{
+    background-color:rgba(0, 0, 0, 0.639);
+    position: relative;
+    /* top: -0.5em; */
+}
+
+.card-deck{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.booking-card{
+    width: 250px;
+    margin: 1em;
+}
 
 
 .logoname{

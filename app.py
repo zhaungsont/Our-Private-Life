@@ -116,6 +116,9 @@ def dating_results():
 
         list_results.append(results)
 
+    #我只要十筆就好！！
+    list_results = list_results[0:10]
+
     return render_template('dating.html', results=list_results, bookingValue=location, locationName=loc_name, temp=temp, temp_desc=temp_desc)
 
     
@@ -169,10 +172,11 @@ def weather(loc):
 @app.route("/booking_select",methods=['POST','GET'])
 def booking_people():
     loc = flask_request.form.get("bookingLoc")
+    locName = flask_request.form.get("locationName")
 
     #loc 抓取 bookingLoc 資料
     #bookingLoc 來自 booking.html input type="hidden"
-    return render_template('booking_select.html',bookingLoc=loc)
+    return render_template('booking_select.html',bookingLoc=loc, locName=locName)
     #returm 到booking_select.html 並將 loc 抓到的資料丟到booking_select.html
 
 
@@ -296,13 +300,22 @@ def booking():
         score_list=score_list+[score_n]
     #將所有抓取到的資料list 照順序存進字典 new_entry
     for i in range(len(imgurl_list)):
-            new_entry = {}
-            new_entry['title'] = title_list[i]
-            new_entry['img'] = imgurl_list[i]
+        new_entry = {}
+        new_entry['title'] = title_list[i]
+        new_entry['img'] = imgurl_list[i]
+        new_entry['order'] = order_portals[i]['href']
+        try:
             new_entry['price'] = prices[i].string
-            new_entry['order'] = order_portals[i]['href']
+        except:
+            new_entry['price'] = '點擊連結以觀看'
+        try:
             new_entry["score"] =score_list[i]
-            results.append(new_entry)
+        except:
+            new_entry["score"] ='尚無評價'
+        results.append(new_entry)
+
+    # 我只想要 24 筆就好！
+    # results = results[0:24]
     #將資料return到booking.html        
     return render_template('booking.html', data=results, year1=year1, month1=month1, date1=date1, year2=year2, month2=month2, date2=date2, ad=ad, ch=ch, room=room)
 
