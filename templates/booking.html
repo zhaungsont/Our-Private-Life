@@ -25,9 +25,9 @@
         <div class="card booking-card">
           <img class="card-img-top" src={{ entry['img'] }} alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">{{ entry['title'] }}</h5>
-            <p class="card-text">售價：{{ entry['price'] }}元</p>
-            <p class="card-text">評價：{{ entry['score'] }}</p>
+            <h3 class="card-title">{{ entry['title'] }}</h3>
+            <p class="card-text">售價：{{ entry['price'] }}元 <br>評價：{{ entry['score'] }}</p>
+            <!-- <p class="card-text">評價：{{ entry['score'] }}</p> -->
             <div class="d-grid gap-2">
                 <a class="btn btn-primary" href={{ entry['order'] }}>訂購</a>
             </div>  
