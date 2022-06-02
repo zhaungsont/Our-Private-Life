@@ -277,7 +277,7 @@ html, body {
 
 .dating-title{
     margin-bottom: 1em;
-    margin-left: 1em;
+    margin-left: 15%;
     color: rgb(255, 255, 255);
     font-size: 4em;
 }
@@ -364,7 +364,7 @@ html, body {
 }
 
 .bsform{
-    margin-left: 4em;
+    margin-left: 15%;
     margin-right: 50%;
 }
 
@@ -401,6 +401,10 @@ html, body {
     background-color:rgba(0, 0, 0, 0.639);
     position: relative;
     /* top: -0.5em; */
+}
+
+#booking-cards .btn{
+    color: aliceblue;
 }
 
 .card-deck{
