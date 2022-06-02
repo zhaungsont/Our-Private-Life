@@ -369,7 +369,7 @@ html, body {
 }
 
 .bsspacer{
-    padding-bottom: 10em;
+    padding-bottom: 20vh;
 }
 
 #booking-info{
@@ -566,6 +566,10 @@ h3{
         margin: auto 30%;
         padding-left: 0;
         padding-right: 0;
+    }
+
+    .bsspacer{
+        padding-bottom: 40vh;
     }
 
 }
