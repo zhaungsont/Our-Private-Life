@@ -4,6 +4,11 @@ body{
 
 }
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 #navbar{
     background: rgb(148,214,226);
     background: linear-gradient(45deg, rgba(148,214,226,1) 0%, rgba(202,232,234,1) 100%);
@@ -78,10 +83,21 @@ body{
     width: 50%;
 }
 
+.titlebg{
+    padding: 0.5em;
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.2);
+    width: fit-content;
+    margin: auto;
+}
+
 .main-left h1{
+    /* font-family: 'Noto Sans TC', sans-serif; */
     font-family: 'Noto Serif TC', serif;
     text-align: center;
     font-size: 5em;
+    color: aliceblue;
 }
 
 .main-right h1{
@@ -89,7 +105,12 @@ body{
     color:rgb(250, 59, 174);
     text-align: center;
 }
+
 #description-section{
+    width: 110%;
+    position: relative;
+    left: -5%;
+    /* overflow: hidden; */
     background-color:rgba(0, 0, 0, 0.639);
     -moz-box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
     -webkit-box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
@@ -236,6 +257,10 @@ body{
 }
 
 #dating{
+    width: 110%;
+    position: relative;
+    left: -5%;
+
     margin-top: 16em;
     padding: 0 2em;
     color: white;
@@ -258,9 +283,8 @@ body{
 }
 
 .desination-form{
-
-    margin: 0 1em;
-    width: 80%;
+    margin: 0 15%;
+    /* width: 80%; */
 }
 
 .arrow{
@@ -327,14 +351,68 @@ body{
     /* background-color: aqua; */
 }
 
+.weather-wrapper{
+    display: flex;
+    align-items: center;
+}
 
-/* .form-select{
-    max-width: 20em!important;
-    margin: 1em 0;
-} */
+.weather-wrapper img{
+    filter: invert(1);
+    width: 4em;
+    height: 4em;
+    margin-right: 1em;
+}
 
+.bsform{
+    margin-left: 4em;
+    margin-right: 50%;
+}
 
+.bsspacer{
+    padding-bottom: 10em;
+}
 
+#booking-info{
+    
+    width: 110%;
+    position: relative;
+    left: -5%;
+
+    margin-top: 16em;
+    padding: 0 20%;
+    color: white;
+    /* make edges blurry */
+    /* 1px: Horizontal offset of the effect. Positive numbers shift it right, negative left.
+    2px: Vertical offset of the effect. Positive numbers shift it down, negative up.
+    3px: The blur effect.  0 means no blur.
+    color: The color of the shadow. */
+    background-color:rgba(0, 0, 0, 0.639);
+    -moz-box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
+    -webkit-box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
+    box-shadow: 0px -50px 50px rgba(0, 0, 0, 0.639);
+}
+
+.bookingflex{
+    display: flex;
+    justify-content: center;
+}
+
+#booking-cards{
+    background-color:rgba(0, 0, 0, 0.639);
+    position: relative;
+    /* top: -0.5em; */
+}
+
+.card-deck{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.booking-card{
+    width: 250px;
+    margin: 1em;
+}
 
 
 .logoname{
@@ -368,8 +446,7 @@ p{
 }
 
 h3{
-
-    font-family: 'Noto Serif TC', serif;
+    font-family: 'Noto Sans TC', sans-serif;
 }
 
 .giftingbg{
@@ -413,6 +490,17 @@ h3{
 .giftcard-wrapper{
     margin: auto 15%;
     padding-bottom: 5em;
+}
+
+.wordcloud{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: aliceblue;
+}
+
+.wordcloud img{
+    border-radius: 30px;
 }
 
 .card-title{

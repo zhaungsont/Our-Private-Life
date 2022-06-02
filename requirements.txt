@@ -1,0 +1,9 @@
+Flask
+gunicorn
+requests
+bs4
+jieba
+Pillow
+numpy
+wordcloud
+selenium
