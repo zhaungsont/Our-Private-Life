@@ -4,8 +4,6 @@ from flask import request as flask_request
 import requests, json
 
 import urllib.request as req
-# import ssl
-import bs4
 
 # wordcloud
 import jieba
@@ -26,16 +24,16 @@ from selenium.webdriver.common.by import By
 # headless
 from selenium.webdriver.chrome.options import Options  
 
-# convert chinese strings to url encoding
-import urllib.parse
-
 app = Flask(__name__)
 
+@app.route("/") # url 端點
+def hello_world(): # 觸發 hello_world 函式
+    return '<p>Hello, World!</p>'
 
 # 暫時，之後會去掉
-@app.route("/")
-def hello_world():
-    return redirect('/home')
+# @app.route("/")
+# def hello_world():
+#     return redirect('/home')
 
 @app.route("/home")
 def home():
