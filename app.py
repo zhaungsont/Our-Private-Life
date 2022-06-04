@@ -1,9 +1,15 @@
+# flask
 from flask import Flask, render_template, redirect
 from flask import request as flask_request
 
+# web scraping
 import requests, json
-
 import urllib.request as req
+from bs4 import BeautifulSoup
+
+
+import os
+import random
 
 # wordcloud
 import jieba
@@ -13,27 +19,18 @@ from PIL import Image
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
-import os
-import random
-from bs4 import BeautifulSoup
 
+# selenium
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
-
-# headless
 from selenium.webdriver.chrome.options import Options  
 
 app = Flask(__name__)
 
-@app.route("/") # url 端點
-def hello_world(): # 觸發 hello_world 函式
-    return '<p>Hello, World!</p>'
-
-# 暫時，之後會去掉
-# @app.route("/")
-# def hello_world():
-#     return redirect('/home')
+@app.route("/")
+def hello_world():
+    return redirect('/home')
 
 @app.route("/home")
 def home():
@@ -178,8 +175,6 @@ def booking_people():
     #returm 到booking_select.html 並將 loc 抓到的資料丟到booking_select.html
 
 
-
-
 @app.route('/booking', methods=['POST','GET'])
 def booking():
     #將 booking_select.html 選擇的數據回傳並儲存在各自的變數內
@@ -315,6 +310,7 @@ def booking():
     #將資料return到booking.html        
     return render_template('booking.html', data=results, year1=year1, month1=month1, date1=date1, year2=year2, month2=month2, date2=date2, ad=ad, ch=ch, room=room)
 
+
 @app.route('/gifting')
 def gifting():
     return render_template('gifting.html', keyword='', data='!initial')
@@ -430,7 +426,6 @@ def shopee_crawler(keyword, randname): # 可以放參數進去
     # print(gift_list)
     return gift_list
         
-    # shopee_crawler(keyword)
 
 # 如果你使用 python app.py 指令運行的話也能透過以下程式碼來啟動 flask 。
 if __name__ == "__main__":
