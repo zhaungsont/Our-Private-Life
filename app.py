@@ -85,7 +85,7 @@ def dating_results():
     # REQUESTS
     res = requests.get(url, headers = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'})
     # res.encoding("utf-8")
-    print(res.text)
+    # print(res.text)
 
     # #爬html
     # request=req.Request(url,headers={
@@ -99,30 +99,30 @@ def dating_results():
 
     # with req.urlopen(request) as response:
     #     data=response.read().decode("utf-8")
-    
+    root=BeautifulSoup(res,"html.parser")
     # root=BeautifulSoup(data,"html.parser")
     # #print(root.title.string,"\n")
 
-    # list_results=[]
+    list_results=[]
 
-    # # ~~~新方法~~~
-    # for new_a in root.find_all("article"):
-    #     new_h2 = new_a.find("h2")
-    #     new_a2 = new_h2.find("a")
-    #     new_title = new_a2.text
-    #     new_url="https://www.dcard.tw"+new_a2.get("href")
-    #     results = {
-    #         'title': new_title,
-    #         'url': new_url
-    #     }
+    # ~~~新方法~~~
+    for new_a in root.find_all("article"):
+        new_h2 = new_a.find("h2")
+        new_a2 = new_h2.find("a")
+        new_title = new_a2.text
+        new_url="https://www.dcard.tw"+new_a2.get("href")
+        results = {
+            'title': new_title,
+            'url': new_url
+        }
 
-    #     list_results.append(results)
+        list_results.append(results)
 
-    # #我只要十筆就好！！
-    # list_results = list_results[0:10]
+    #我只要十筆就好！！
+    list_results = list_results[0:10]
 
-    # return render_template('dating.html', results=list_results, bookingValue=location, locationName=loc_name, temp=temp, temp_desc=temp_desc)
-    return "debug"
+    return render_template('dating.html', results=list_results, bookingValue=location, locationName=loc_name, temp=temp, temp_desc=temp_desc)
+    # return "debug"
     
 def weather(loc):
 
