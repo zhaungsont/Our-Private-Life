@@ -26,9 +26,6 @@ from selenium.webdriver.common.by import By
 # headless
 from selenium.webdriver.chrome.options import Options  
 
-# convert chinese strings to url encoding
-import urllib.parse
-
 app = Flask(__name__)
 
 
@@ -123,9 +120,6 @@ def dating_results():
 
     
 def weather(loc):
-
-    # driverPath='static/chromedriver'
-    # browser=webdriver.Chrome(driverPath)
     chrome_options = Options()  
     chrome_options.add_argument("--headless")  
 
