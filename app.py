@@ -1,11 +1,15 @@
+# flask
 from flask import Flask, render_template, redirect
 from flask import request as flask_request
 
+# web scraping
 import requests, json
-
 import urllib.request as req
-# import ssl
-import bs4
+from bs4 import BeautifulSoup
+
+
+import os
+import random
 
 # wordcloud
 import jieba
@@ -15,21 +19,15 @@ from PIL import Image
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
-import os
-import random
-from bs4 import BeautifulSoup
 
+# selenium
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
-
-# headless
 from selenium.webdriver.chrome.options import Options  
 
 app = Flask(__name__)
 
-
-# 暫時，之後會去掉
 @app.route("/")
 def hello_world():
     return redirect('/home')
@@ -95,7 +93,7 @@ def dating_results():
     with req.urlopen(request) as response:
         data=response.read().decode("utf-8")
     
-    root=bs4.BeautifulSoup(data,"html.parser")
+    root=BeautifulSoup(data,"html.parser")
     #print(root.title.string,"\n")
 
     list_results=[]
@@ -174,8 +172,6 @@ def booking_people():
     #returm 到booking_select.html 並將 loc 抓到的資料丟到booking_select.html
 
 
-
-
 @app.route('/booking', methods=['POST','GET'])
 def booking():
     #將 booking_select.html 選擇的數據回傳並儲存在各自的變數內
@@ -248,7 +244,7 @@ def booking():
     with req.urlopen(request) as response:
         data = response.read().decode("utf-8")
     #解析方法
-    root = bs4.BeautifulSoup(data, "html.parser")
+    root = BeautifulSoup(data, "html.parser")
     #抓取對應標籤之資料
     title_and_img = root.find_all("img", class_=title_and_img_class)
     prices = root.find_all("span", class_=price_class)
@@ -308,10 +304,9 @@ def booking():
             new_entry["score"] ='尚無評價'
         results.append(new_entry)
 
-    # 我只想要 24 筆就好！
-    # results = results[0:24]
     #將資料return到booking.html        
     return render_template('booking.html', data=results, year1=year1, month1=month1, date1=date1, year2=year2, month2=month2, date2=date2, ad=ad, ch=ch, room=room)
+
 
 @app.route('/gifting')
 def gifting():
@@ -428,7 +423,6 @@ def shopee_crawler(keyword, randname): # 可以放參數進去
     # print(gift_list)
     return gift_list
         
-    # shopee_crawler(keyword)
 
 # 如果你使用 python app.py 指令運行的話也能透過以下程式碼來啟動 flask 。
 if __name__ == "__main__":
