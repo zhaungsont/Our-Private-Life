@@ -124,7 +124,7 @@ def weather(loc):
     chrome_options = Options()  
     chrome_options.add_argument("--headless")  
 
-    browser = webdriver.Chrome(chrome_options=chrome_options, executable_path='static/chromedriver')  
+    browser = webdriver.Chrome(chrome_options=chrome_options, executable_path='static/selenium/chromedriver')  
 
 
     url='https://www.cwb.gov.tw/V8/C/W/County/County.html?CID=63'
