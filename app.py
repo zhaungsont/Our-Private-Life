@@ -43,48 +43,49 @@ def dating():
 @app.route('/dating', methods=['POST'])
 def dating_results():
 
+    location = flask_request.form.get('location')
+    temp, temp_desc = weather(location)
+    print(temp)
+    print(temp_desc)
+
+    if location == 'taipei':
+        loc_name = '台北'
+        url="https://www.dcard.tw/topics/%E5%8F%B0%E5%8C%97%E6%99%AF%E9%BB%9E"
+    elif location == 'newtaipei':
+        loc_name = '新北'
+        url='https://www.dcard.tw/search/posts?forum=travel&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%99%AF%E9%BB%9E'
+    elif location == 'yilan':
+        loc_name = '宜蘭'
+        url='https://www.dcard.tw/search/posts?forum=travel&query=%E5%AE%9C%E8%98%AD&sort=relevance'
+    elif location == 'hualiang':
+        loc_name = '花蓮'
+        url='https://www.dcard.tw/topics/%E8%8A%B1%E8%93%AE%E6%99%AF%E9%BB%9E'
+    elif location == 'taidung':
+        loc_name = '台東'
+        url='https://www.dcard.tw/topics/%E5%8F%B0%E6%9D%B1%E6%99%AF%E9%BB%9E'
+    elif location =='taichung':
+        loc_name = '台中'
+        url='https://www.dcard.tw/topics/%E5%8F%B0%E4%B8%AD%E6%99%AF%E9%BB%9E'
+    elif location == 'miaoli':
+        loc_name = '苗栗'
+        url='https://www.dcard.tw/topics/%E8%8B%97%E6%A0%97?forums=travel'
+    elif location == 'tainan':
+        loc_name = '台南'
+        url='https://www.dcard.tw/topics/%E5%8F%B0%E5%8D%97%E6%99%AF%E9%BB%9E'
+    elif location == 'kaohsiung':
+        loc_name = '高雄'
+        url='https://www.dcard.tw/topics/%E9%AB%98%E9%9B%84%E6%99%AF%E9%BB%9E'
+    elif location == 'pingtung':
+        loc_name = '屏東'
+        url='https://www.dcard.tw/topics/%E5%B1%8F%E6%9D%B1?forums=travel'
+
+
+    # print(f'url={url}')
+
     # REQUESTS
     res = requests.get(url, headers = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'})
     res.encoding("utf-8")
     print(res.text)
-    # location = flask_request.form.get('location')
-    # temp, temp_desc = weather(location)
-    # print(temp)
-    # print(temp_desc)
-
-    # if location == 'taipei':
-    #     loc_name = '台北'
-    #     url="https://www.dcard.tw/topics/%E5%8F%B0%E5%8C%97%E6%99%AF%E9%BB%9E"
-    # elif location == 'newtaipei':
-    #     loc_name = '新北'
-    #     url='https://www.dcard.tw/search/posts?forum=travel&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%99%AF%E9%BB%9E'
-    # elif location == 'yilan':
-    #     loc_name = '宜蘭'
-    #     url='https://www.dcard.tw/search/posts?forum=travel&query=%E5%AE%9C%E8%98%AD&sort=relevance'
-    # elif location == 'hualiang':
-    #     loc_name = '花蓮'
-    #     url='https://www.dcard.tw/topics/%E8%8A%B1%E8%93%AE%E6%99%AF%E9%BB%9E'
-    # elif location == 'taidung':
-    #     loc_name = '台東'
-    #     url='https://www.dcard.tw/topics/%E5%8F%B0%E6%9D%B1%E6%99%AF%E9%BB%9E'
-    # elif location =='taichung':
-    #     loc_name = '台中'
-    #     url='https://www.dcard.tw/topics/%E5%8F%B0%E4%B8%AD%E6%99%AF%E9%BB%9E'
-    # elif location == 'miaoli':
-    #     loc_name = '苗栗'
-    #     url='https://www.dcard.tw/topics/%E8%8B%97%E6%A0%97?forums=travel'
-    # elif location == 'tainan':
-    #     loc_name = '台南'
-    #     url='https://www.dcard.tw/topics/%E5%8F%B0%E5%8D%97%E6%99%AF%E9%BB%9E'
-    # elif location == 'kaohsiung':
-    #     loc_name = '高雄'
-    #     url='https://www.dcard.tw/topics/%E9%AB%98%E9%9B%84%E6%99%AF%E9%BB%9E'
-    # elif location == 'pingtung':
-    #     loc_name = '屏東'
-    #     url='https://www.dcard.tw/topics/%E5%B1%8F%E6%9D%B1?forums=travel'
-
-
-    # print(f'url={url}')
 
     # #爬html
     # request=req.Request(url,headers={
