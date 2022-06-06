@@ -84,7 +84,7 @@ def dating_results():
 
     # REQUESTS
     res = requests.get(url, headers = {'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'})
-    res.encoding("utf-8")
+    # res.encoding("utf-8")
     print(res.text)
 
     # #爬html
