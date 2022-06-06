@@ -93,7 +93,7 @@ def dating_results():
     with req.urlopen(request) as response:
         data=response.read().decode("utf-8")
     
-    root=bs4.BeautifulSoup(data,"html.parser")
+    root=BeautifulSoup(data,"html.parser")
     #print(root.title.string,"\n")
 
     list_results=[]
@@ -247,7 +247,7 @@ def booking():
     with req.urlopen(request) as response:
         data = response.read().decode("utf-8")
     #解析方法
-    root = bs4.BeautifulSoup(data, "html.parser")
+    root = BeautifulSoup(data, "html.parser")
     #抓取對應標籤之資料
     title_and_img = root.find_all("img", class_=title_and_img_class)
     prices = root.find_all("span", class_=price_class)
